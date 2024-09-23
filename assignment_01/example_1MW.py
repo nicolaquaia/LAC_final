@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from aero_design_functions import get_design_functions_1MW, single_point_design
-#hello there
+
 
 # Function for the absolute thickness vs span for the 35 m blade
 def thickness(r, chord_root):
