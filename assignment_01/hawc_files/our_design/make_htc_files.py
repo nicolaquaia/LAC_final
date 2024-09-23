@@ -17,11 +17,8 @@ if __name__ == '__main__':
                     compute_steady_states=True,
                     save_power=True)
 
-    # make rigid hawc2s file for multi-tsr opt file
     htc = MyHTC(ORIG_PATH)
-
-        # make rigid hawc2s file for single-wsp opt file
-    htc = MyHTC(ORIG_PATH)
+    # make rigid hawc2s file for multi-wsp opt file
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=True,
                     append='_hawc2s_multiwsp',
@@ -29,7 +26,17 @@ if __name__ == '__main__':
                     compute_steady_states=True,
                     save_power=True)
 
-    # make rigid hawc2s file for multi-tsr opt file
     htc = MyHTC(ORIG_PATH)
+    # make rigid hawc2s file for compute rigid opt file
+    htc.make_hawc2s(SAVE_HAWC2S_DIR,
+                    rigid=True,
+                    append='_hawc2s_compute_rigid_opt',
+                    opt_path='./data/dtu_10mw_rigid.opt',
+                    compute_steady_states=True,
+                    save_power=True,
+                    minpitch = 0.001070,
+                    opt_lambda=7.263157)
+    
 
-    # INSERT CODE HERE WHEN PROMPTED (A0)
+    # INSERT CODE HERE WHEN PROMPTED 
+
