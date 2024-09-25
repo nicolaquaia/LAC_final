@@ -65,8 +65,8 @@ if __name__ == "__main__":
 
     # %% Scaling ST-data
     st_data = scale_ST_data(st_data_DTU10MW, scale_factor)
-    print(st_data)
-    print(st_data_DTU10MW)
+    #print(st_data)
+    #print(st_data_DTU10MW)
     # %% Plotting scaled and baseline data
     # Plotting m, I_x, I_y, I_p, S_chord, S_thickness
     fig, axs = plt.subplots(3, 1, figsize=(7, 6))
@@ -94,20 +94,15 @@ if __name__ == "__main__":
     fig.tight_layout()
     #plt.show()
 
+
+    # create rigid data
+    st_data_rigid = st_data
+    st_data_rigid["E"] = st_data["E"]*1e7
+    st_data_rigid["G"] = st_data["G"]*1e9
+
     # Saving the upscaled data
-    st_path = "hawc_files/our_design/data/Group1_RWT_Blade_st.dat"
-    save_st(st_path, st_data)
-    # Saving only a single subset
-    #save_st(st_path, st_data[0][1])
-    # Saving multiple sets (dummy example)
-    #save_st(st_path, [
-    #    st_data, # Set one
-    #    [ # Set two
-    #        st_data[0][0], # Subset 1
-    #        st_data[0][1], # Subset 2
-    #        st_data[0][1], # Subset 3 (dummy same as subset 2)
-    #    ]
-    #    ]
-    #)
+    out_dir = Path(__file__).parent
+    path_out = script_dir / "hawc_files/our_design/data/Group1_RWT_Blade_st.dat"
+    save_st(path_out, [st_data, st_data_rigid])
 
 
