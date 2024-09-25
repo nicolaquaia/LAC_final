@@ -27,6 +27,7 @@ if __name__ == '__main__':
                     compute_steady_states=True,
                     save_power=True,
                     save_induction=True)
+                    
     
     htc = MyHTC(ORIG_PATH)
     # make rigid hawc2s file for compute rigid opt file
