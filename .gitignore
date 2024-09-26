@@ -24,3 +24,7 @@ share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+
+# random fles
+structureal_scaling_example.py
