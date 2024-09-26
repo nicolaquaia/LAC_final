@@ -46,7 +46,7 @@ def scale_ST_data(baseline_st_data, scale_factor):
 if __name__ == "__main__":
     # %% Import modules
     import matplotlib.pyplot as plt
-    from lacbox.io import load_st,save_st
+    from lacbox.io import load_st,save_st, load_oper
     from pathlib import Path
     from Our_values import*
     from lacbox.test import test_data_path
@@ -104,5 +104,94 @@ if __name__ == "__main__":
     out_dir = Path(__file__).parent
     path_out = script_dir / "hawc_files/our_design/data/Group1_RWT_Blade_st.dat"
     save_st(path_out, [st_data, st_data_rigid])
+
+    # Side-by-side plots of the rotor speed (left plot) and pitch angles (right plot) versus wind speed
+
+    rigid_path = "hawc_files/our_design/data/Group1_redesign_rigid.opt"
+    rigid_data = load_oper(rigid_path)
+
+    rigid_DTU_10_path = "hawc_files/our_design/data/dtu_10mw_rigid.opt"
+    rigid_DTU_10_data = load_oper(rigid_DTU_10_path)
+
+    flex_path = "hawc_files/our_design/data/Group1_redesign_flex.opt"
+    flex_data = load_oper(flex_path)
+
+
+
+    print(rigid_data.keys())
+
+
+    fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(18,8))
+
+    axs1[0].plot(rigid_data['ws_ms'], rigid_data['rotor_speed_rpm'], label='redesign')
+    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['rotor_speed_rpm'], label='DTU_10')
+    axs1[0].plot(flex_data['ws_ms'], flex_data['rotor_speed_rpm'], label='flex redesign')
+    axs1[0].set_xlabel("wind speed [m/s]")
+    axs1[0].set_ylabel("Rotor speed [rpm]")
+    axs1[0].legend()
+    axs1[0].grid(True)
+
+    axs1[1].plot(rigid_data['ws_ms'], rigid_data['pitch_deg'], label='redesign')
+    axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['pitch_deg'], label='DTU_10')
+    axs1[1].plot(flex_data['ws_ms'], flex_data['pitch_deg'], label='flex redesign')
+    axs1[1].set_xlabel("wind speed [m/s]")
+    axs1[1].set_ylabel("pitch [deg]")
+    axs1[1].legend()
+    axs1[1].grid(True)
+
+    # Adjust layout and show the figure
+    plt.tight_layout()
+    plt.show()
+
+
+    # Side-by-side plots of the aerodynamic power (left plot) and its coefficient (right plot), and the thrust (left plot) and its coefficient (right plot) versus wind speed
+
+
+    fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(18,8))
+
+    axs1[0].plot(rigid_data['ws_ms'], rigid_data['power_kw'], label='redesign')
+    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['power_kw'], label='DTU_10')
+    axs1[0].plot(flex_data['ws_ms'], flex_data['power_kw'], label='flex redesign')
+    axs1[0].set_ylabel("Power [kW]")
+    axs1[0].set_xlabel("Wind speed [m/s]")
+    axs1[0].legend()
+    axs1[0].grid(True)
+
+    axs1[1].plot(rigid_data['ws_ms'], rigid_data['thrust_kn'], label='redesign')
+    axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['thrust_kn'], label='DTU_10')
+    axs1[1].plot(flex_data['ws_ms'], flex_data['thrust_kn'], label='flex redesign')
+    axs1[1].set_xlabel("wind speed [m/s]")
+    axs1[1].set_ylabel("thrust [kN]")
+    axs1[1].legend()
+    axs1[1].grid(True)
+
+    # Adjust layout and show the figure
+    plt.tight_layout()
+    plt.show()
+
+    fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(18,8))
+
+    axs1[0].plot(rigid_data['ws_ms'], rigid_data['power_kw']/(rigid_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='redesign')
+    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['power_kw']/(rigid_DTU_10_data['ws_ms']**3*1/2*np.pi*R_X**2*1.225), label='DTU_10')
+    axs1[0].plot(flex_data['ws_ms'], flex_data['power_kw']/(flex_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
+    axs1[0].set_ylabel("CP")
+    axs1[0].set_xlabel("Wind speed [m/s]")
+    axs1[0].legend()
+    axs1[0].grid(True)
+    #axs1[0].set_ylim(8000,10000)
+    #axs1[0].set_xlim(10,12)
+
+    axs1[1].plot(rigid_data['ws_ms'], rigid_data['thrust_kn']/(rigid_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='redesign')
+    axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['thrust_kn']/(rigid_DTU_10_data['ws_ms']**2*1/2*np.pi*R_X**2*1.225), label='DTU_10')
+    axs1[1].plot(flex_data['ws_ms'], flex_data['thrust_kn']/(flex_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
+    axs1[1].set_xlabel("wind speed [m/s]")
+    axs1[1].set_ylabel("CT")
+    axs1[1].legend()
+    axs1[1].grid(True)
+
+    # Adjust layout and show the figure
+    plt.tight_layout()
+    plt.show()
+
 
 
