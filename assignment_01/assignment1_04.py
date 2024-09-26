@@ -50,12 +50,17 @@ if __name__ == "__main__":
     from pathlib import Path
     from Our_values import*
     from lacbox.test import test_data_path
+    import copy
 
 
     # %% Inputs
     # Baseline ST-data (DTU 10MW)
     script_dir = Path(__file__).parent
     path_st_file_DTU10MW = script_dir / "hawc_files/our_design/data/DTU_10MW_RWT_Blade_st.dat"
+
+    print(f"Constructed path: {path_st_file_DTU10MW}")
+    print(f"File exists: {path_st_file_DTU10MW.exists()}")
+
     st_data_DTU10MW = load_st(path_st_file_DTU10MW, 0, 0)  # Baseline data
 
     # Scaling factor
@@ -67,6 +72,7 @@ if __name__ == "__main__":
     st_data = scale_ST_data(st_data_DTU10MW, scale_factor)
     #print(st_data)
     #print(st_data_DTU10MW)
+
     # %% Plotting scaled and baseline data
     # Plotting m, I_x, I_y, I_p, S_chord, S_thickness
     fig, axs = plt.subplots(3, 1, figsize=(7, 6))
@@ -94,9 +100,8 @@ if __name__ == "__main__":
     fig.tight_layout()
     #plt.show()
 
-
     # create rigid data
-    st_data_rigid = st_data
+    st_data_rigid = st_data.copy()
     st_data_rigid["E"] = st_data["E"]*1e7
     st_data_rigid["G"] = st_data["G"]*1e9
 
@@ -105,15 +110,25 @@ if __name__ == "__main__":
     path_out = script_dir / "hawc_files/our_design/data/Group1_RWT_Blade_st.dat"
     save_st(path_out, [st_data, st_data_rigid])
 
-    # Side-by-side plots of the rotor speed (left plot) and pitch angles (right plot) versus wind speed
 
-    rigid_path = "hawc_files/our_design/data/Group1_redesign_rigid.opt"
+    # Side-by-side plots of the rotor speed (left plot) and pitch angles (right plot) versus wind speed
+    script_dir = Path(__file__).parent
+    rigid_path = script_dir / 'hawc_files/our_design/data/Group1_redesign_rigid.opt'
     rigid_data = load_oper(rigid_path)
 
-    rigid_DTU_10_path = "hawc_files/our_design/data/dtu_10mw_rigid.opt"
+    print(f"Constructed path: {rigid_path}")
+    print(f"File exists: {rigid_path.exists()}")
+
+    script_dir = Path(__file__).parent
+    rigid_DTU_10_path = script_dir / 'hawc_files/our_design/data/dtu_10mw_rigid.opt'
     rigid_DTU_10_data = load_oper(rigid_DTU_10_path)
 
-    flex_path = "hawc_files/our_design/data/Group1_redesign_flex.opt"
+    print(f"Constructed path: {rigid_DTU_10_path}")
+    print(f"File exists: {rigid_DTU_10_path.exists()}")
+
+
+    script_dir = Path(__file__).parent
+    flex_path = script_dir / 'hawc_files/our_design/data/Group1_redesign_flex.opt'
     flex_data = load_oper(flex_path)
 
 
@@ -145,8 +160,6 @@ if __name__ == "__main__":
 
 
     # Side-by-side plots of the aerodynamic power (left plot) and its coefficient (right plot), and the thrust (left plot) and its coefficient (right plot) versus wind speed
-
-
     fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(18,8))
 
     axs1[0].plot(rigid_data['ws_ms'], rigid_data['power_kw'], label='redesign')
@@ -192,6 +205,3 @@ if __name__ == "__main__":
     # Adjust layout and show the figure
     plt.tight_layout()
     plt.show()
-
-
-
