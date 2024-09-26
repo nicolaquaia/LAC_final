@@ -1,6 +1,6 @@
 # Group 1 repository
 Group members:
-    Nicola Quaia               s232439
-    Mathéo Chala               s233011
-    Farras Muhammad Fikry      s240121
-    Bogusz Adam Glaza          s233186
+&nbsp;Nicola Quaia&nbsp;&nbsp;s232439  
+&nbsp;Mathéo Chala&nbsp;&nbsp;s233011  
+&nbsp;Farras Muhammad Fikry&nbsp;&nbsp;s240121  
+&nbsp;Bogusz Adam Glaza&nbsp;&nbsp;s233186
