@@ -13,12 +13,12 @@
  ***********************************************************************
 ________________________________________________________________________
   Log file output
-                                                       Time : 21:11:37
-                                                       Date : 26:09.2024
+                                                       Time : 10:42:28
+                                                       Date : 27:09.2024
 ________________________________________________________________________
- Opening main command file: .\Group1_redesign_hawc2s_1wsp.htc
+ Opening main command file: .\dtu_10mw_hawc2s_multiwsp.htc
  Current directory is 
- C:\Users\nicol\git\LAC_repo\assignment_01\hawc_files\our_design
+ C:\Users\nicol\git\LAC_repo\assignment_01\hawc_files\dtu_10mw
  Reading data of main body : tower
  Succes opening ./data/DTU_10MW_RWT_Tower_st.dat
  timoschenko input commands read with succes
@@ -114,10 +114,6 @@ phi_per_node:           3
 ndim_y:                 0
 ndim_u:                 0
 ********************* Initiating dynamic stall model *********************
-Warning: Zero lift aoa not between -15 and 15 deg at sect  1. Treated as fully separated.
-Warning: Zero lift aoa not between -15 and 15 deg at sect  2. Treated as fully separated.
-Warning: Zero lift aoa not between -15 and 15 deg at sect  3. Treated as fully separated.
-Warning: Zero lift aoa not between -15 and 15 deg at sect  4. Treated as fully separated.
 Warning: Zero lift aoa not between -15 and 15 deg at sect  5. Treated as fully separated.
 Warning: Zero lift aoa not between -15 and 15 deg at sect  6. Treated as fully separated.
 Warning: Zero lift aoa not between -15 and 15 deg at sect  7. Treated as fully separated.
@@ -128,14 +124,22 @@ Warning: Zero lift aoa not between -15 and 15 deg at sect 11. Treated as fully s
 Warning: Zero lift aoa not between -15 and 15 deg at sect 12. Treated as fully separated.
 Warning: Zero lift aoa not between -15 and 15 deg at sect 13. Treated as fully separated.
 Warning: Zero lift aoa not between -15 and 15 deg at sect 14. Treated as fully separated.
-Warning: Zero lift aoa not between -15 and 15 deg at sect 15. Treated as fully separated.
-Warning: Zero lift aoa not between -15 and 15 deg at sect 16. Treated as fully separated.
-Warning: Zero lift aoa not between -15 and 15 deg at sect 17. Treated as fully separated.
 ********************* Computing steady state *********************
  Incl. torsional deform:  F
  Incl. tip correction  :  T
  Incl. induction       :  T
  Comp. gradients       :  F
-Processing computation no.  1 of  1
+Processing computation no.  1 of 12
+Processing computation no.  2 of 12
+Processing computation no.  3 of 12
+Processing computation no.  4 of 12
+Processing computation no.  5 of 12
+Processing computation no.  6 of 12
+Processing computation no.  7 of 12
+Processing computation no.  8 of 12
+Processing computation no.  9 of 12
+Processing computation no. 10 of 12
+Processing computation no. 11 of 12
+Processing computation no. 12 of 12
  ...done
  Continue log
