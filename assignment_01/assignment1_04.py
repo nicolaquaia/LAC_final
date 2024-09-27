@@ -73,7 +73,9 @@ if __name__ == "__main__":
     #print(st_data)
     #print(st_data_DTU10MW)
 
+    
     # %% Plotting scaled and baseline data
+
     # Plotting m, I_x, I_y, I_p, S_chord, S_thickness
     fig, axs = plt.subplots(3, 1, figsize=(7, 6))
     # m_d
@@ -133,9 +135,9 @@ if __name__ == "__main__":
 
 
 
-    print(rigid_data.keys())
+    #print(rigid_data.keys())
 
-
+    # plotting omega and pitch as function of ws
     fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(18,8))
 
     axs1[0].plot(rigid_data['ws_ms'], rigid_data['rotor_speed_rpm'], label='redesign')
@@ -156,9 +158,9 @@ if __name__ == "__main__":
 
     # Adjust layout and show the figure
     plt.tight_layout()
-    plt.show()
+    #plt.show()
 
-
+    # plotting P and T as function of ws
     # Side-by-side plots of the aerodynamic power (left plot) and its coefficient (right plot), and the thrust (left plot) and its coefficient (right plot) versus wind speed
     fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(18,8))
 
@@ -180,25 +182,37 @@ if __name__ == "__main__":
 
     # Adjust layout and show the figure
     plt.tight_layout()
-    plt.show()
+    #plt.show()
 
+
+    # plotting CP and CT as function of ws
+
+    rho = 1.225
+    CP_rigid = rigid_data['power_kw'] / (0.5 * rho * rigid_data['ws_ms']**3 * np.pi*R_Y**2)*1e3
+    CP_flex = flex_data['power_kw'] / (0.5 * rho * flex_data['ws_ms']**3 * np.pi*R_Y**2)*1e3
+    CP_DTU_10 = rigid_DTU_10_data['power_kw'] / (0.5 * rho * rigid_DTU_10_data['ws_ms']**3 * np.pi*R_X**2)*1e3
+
+    CT_rigid = rigid_data['thrust_kn'] / (0.5 * rho * rigid_data['ws_ms']**2 * np.pi*R_Y**2)*1e3
+    CT_flex = flex_data['thrust_kn'] / (0.5 * rho * flex_data['ws_ms']**2 * np.pi*R_Y**2)*1e3
+    CT_DTU_10 = rigid_DTU_10_data['thrust_kn'] / (0.5 * rho * rigid_DTU_10_data['ws_ms']**2 * np.pi*R_X**2)*1e3
+    
     fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(18,8))
 
-    axs1[0].plot(rigid_data['ws_ms'], rigid_data['power_kw']/(rigid_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='redesign')
-    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['power_kw']/(rigid_DTU_10_data['ws_ms']**3*1/2*np.pi*R_X**2*1.225), label='DTU_10')
-    axs1[0].plot(flex_data['ws_ms'], flex_data['power_kw']/(flex_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
-    axs1[0].set_ylabel("CP")
+    axs1[0].plot(rigid_data['ws_ms'], CP_rigid, label='redesign')
+    axs1[0].plot(rigid_DTU_10_data['ws_ms'], CP_DTU_10, label='DTU_10')
+    axs1[0].plot(flex_data['ws_ms'], CP_flex, label='flex redesign')
+    axs1[0].set_ylabel("Power coefficient")
     axs1[0].set_xlabel("Wind speed [m/s]")
     axs1[0].legend()
     axs1[0].grid(True)
     #axs1[0].set_ylim(8000,10000)
     #axs1[0].set_xlim(10,12)
 
-    axs1[1].plot(rigid_data['ws_ms'], rigid_data['thrust_kn']/(rigid_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='redesign')
-    axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['thrust_kn']/(rigid_DTU_10_data['ws_ms']**2*1/2*np.pi*R_X**2*1.225), label='DTU_10')
-    axs1[1].plot(flex_data['ws_ms'], flex_data['thrust_kn']/(flex_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
+    axs1[1].plot(rigid_data['ws_ms'], CT_rigid, label='redesign')
+    axs1[1].plot(rigid_DTU_10_data['ws_ms'], CT_DTU_10, label='DTU_10')
+    axs1[1].plot(flex_data['ws_ms'], CT_flex, label='flex redesign')
     axs1[1].set_xlabel("wind speed [m/s]")
-    axs1[1].set_ylabel("CT")
+    axs1[1].set_ylabel("Thrust coefficient")
     axs1[1].legend()
     axs1[1].grid(True)
 
