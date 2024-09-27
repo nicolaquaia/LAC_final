@@ -100,6 +100,7 @@ if __name__ == "__main__":
     ax.grid()
 
     fig.tight_layout()
+    plt.close()
     #plt.show()
 
     # create rigid data
