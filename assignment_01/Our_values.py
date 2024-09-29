@@ -11,6 +11,5 @@ R_Y = 92.52423873190985
 
 
 TSR_opt = 7.2631578947368425
-omega_max = TSR_opt * V_rated_Y / R_Y * 60 / (2*np.pi)
-
-print(omega_max)
+#omega_max = TSR_opt * V_rated_Y / R_Y * 60 / (2*np.pi)
+omega_max = 8.337868262998404

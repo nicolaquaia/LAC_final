@@ -100,8 +100,8 @@ if __name__ == "__main__":
     ax.grid()
 
     fig.tight_layout()
-    plt.close()
-    #plt.show()
+    #plt.close()
+    plt.show()
 
     # create rigid data
     st_data_rigid = st_data.copy()
@@ -159,6 +159,7 @@ if __name__ == "__main__":
 
     # Adjust layout and show the figure
     plt.tight_layout()
+    plt.close()
     #plt.show()
 
     # plotting P and T as function of ws
@@ -219,4 +220,5 @@ if __name__ == "__main__":
 
     # Adjust layout and show the figure
     plt.tight_layout()
-    plt.show()
+    plt.close()
+    #plt.show()
