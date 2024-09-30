@@ -248,9 +248,9 @@ if __name__ == "__main__":
 
     axs1[1].yaxis.set_major_formatter(ticker.ScalarFormatter(useMathText=True))
     axs1[1].ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-    axs1[1].plot(rigid_data['ws_ms'], rigid_data['power_kw']/(rigid_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='rigid redesign')
+    axs1[1].plot(rigid_data['ws_ms'], rigid_data['power_kw']*1000/(rigid_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='rigid redesign')
     axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['power_kw']/(rigid_DTU_10_data['ws_ms']**3*1/2*np.pi*R_X**2*1.225), label='DTU 10 MW')
-    axs1[1].plot(flex_data['ws_ms'], flex_data['power_kw']/(flex_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
+    axs1[1].plot(flex_data['ws_ms'], flex_data['power_kw']*1000/(flex_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
     axs1[1].set_ylabel("CP")
     axs1[1].set_xlabel("Wind speed [m/s]")
     axs1[1].legend()
@@ -277,9 +277,9 @@ if __name__ == "__main__":
 
     axs1[1].yaxis.set_major_formatter(ticker.ScalarFormatter(useMathText=True))
     axs1[1].ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-    axs1[1].plot(rigid_data['ws_ms'], rigid_data['thrust_kn']/(rigid_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='rigid redesign')
+    axs1[1].plot(rigid_data['ws_ms'], rigid_data['thrust_kn']*1000/(rigid_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='rigid redesign')
     axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['thrust_kn']/(rigid_DTU_10_data['ws_ms']**2*1/2*np.pi*R_X**2*1.225), label='DTU 10 MW')
-    axs1[1].plot(flex_data['ws_ms'], flex_data['thrust_kn']/(flex_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
+    axs1[1].plot(flex_data['ws_ms'], flex_data['thrust_kn']*1000/(flex_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
     axs1[1].set_xlabel("wind speed [m/s]")
     axs1[1].set_ylabel("CT")
     axs1[1].legend()
