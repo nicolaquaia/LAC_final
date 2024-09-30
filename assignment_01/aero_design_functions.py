@@ -125,10 +125,14 @@ def get_design_functions(i_des_funs):
         PchipInterpolator(tc, cl),
         PchipInterpolator(tc, cd),
         PchipInterpolator(tc, aoa),
-        np.array(tc[1:-2]),
-        np.array(cl[1:-2]),
-        np.array(cd[1:-2]),
-        np.array(aoa[1:-2]),
+        #np.array(tc[1:-2]),
+        #np.array(cl[1:-2]),
+        #np.array(cd[1:-2]),
+        #np.array(aoa[1:-2]),
+        np.array(tc[1:-1]),
+        np.array(cl[1:-1]),
+        np.array(cd[1:-1]),
+        np.array(aoa[1:-1])
     )
 
 

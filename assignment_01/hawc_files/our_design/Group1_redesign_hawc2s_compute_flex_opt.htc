@@ -307,7 +307,7 @@
     end rotating_threebladed_substructure;
 ;
 ; path to opt file, used for all commands EXCEPT compute_optimal_pitch_angle
-    operational_data_filename	./data/dtu_10mw_rigid.opt;	
+    operational_data_filename	./data/Group1_redesign_rigid.opt;	
 ;
 ; settings for compute_optimal_pitch_angle
     begin operational_data;

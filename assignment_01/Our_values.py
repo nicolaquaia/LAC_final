@@ -13,3 +13,5 @@ V_rated_X = 11.4
 TSR_opt = 7.2631578947368425
 #omega_max = TSR_opt * V_rated_Y / R_Y * 60 / (2*np.pi)
 omega_max = 8.337868262998404
+print(omega_max*50)
+

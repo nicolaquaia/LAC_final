@@ -42,7 +42,53 @@ def scale_ST_data(baseline_st_data, scale_factor):
     st_data["y_e"] = baseline_st_data["y_e"] * scale_factor
     return st_data
 
+"""def annotate_points(ax, x_data, y_data, label):
+    # Annotate first point
+    ax.annotate(f'({x_data[0]:.2f}, {y_data[0]:.2f})', 
+                xy=(x_data[0], y_data[0]), xycoords='data',
+                xytext=(5, -5), textcoords='offset points', 
+                arrowprops=dict(arrowstyle="->", lw=0.5))
+    
+    # Annotate last point
+    ax.annotate(f'({x_data[-1]:.2f}, {y_data[-1]:.2f})', 
+                xy=(x_data[-1], y_data[-1]), xycoords='data',
+                xytext=(-40, 5), textcoords='offset points', 
+                arrowprops=dict(arrowstyle="->", lw=0.5))
+"""
 
+"""def display_lines(ax, x_data, y_data, label):
+    # First point
+    ax.axvline(x_data[0], color='gray', linestyle='--', linewidth=0.8)
+    ax.axhline(y_data[0], color='gray', linestyle='--', linewidth=0.8)
+    ax.text(x_data[0], ax.get_ylim()[0], f'{x_data[0]:.2f}', ha='center', va='bottom', fontsize=8)
+    ax.text(ax.get_xlim()[0], y_data[0], f'{y_data[0]:.2f}', ha='right', va='center', fontsize=8)
+    
+    # Last point
+    ax.axvline(x_data[-1], color='gray', linestyle='--', linewidth=0.8)
+    ax.axhline(y_data[-1], color='gray', linestyle='--', linewidth=0.8)
+    ax.text(x_data[-1], ax.get_ylim()[0], f'{x_data[-1]:.2f}', ha='center', va='bottom', fontsize=8)
+    ax.text(ax.get_xlim()[0], y_data[-1], f'{y_data[-1]:.2f}', ha='right', va='center', fontsize=8)
+"""
+
+def display_lines(ax, x_data, y_data, label, stagger_offset=0.1):
+    # Adjust text positions to avoid overlapping
+    ylim = ax.get_ylim()
+    xlim = ax.get_xlim()
+    
+    # First point
+    ax.axhline(y_data[0], color='red', linestyle='--', linewidth=0.8)
+    
+    # Display x and y values with slight offsets
+    ax.text(xlim[0] - stagger_offset * (4), y_data[0], f'{y_data[0]:.2f}', 
+            ha='right', va='center', fontsize=8)
+    
+    # Last point
+    ax.axvline(x_data[-1], color='green', linestyle='--', linewidth=0.8)
+    
+    # Display x and y values with slight offsets
+    ax.text(x_data[-1], ylim[0] - stagger_offset * (ylim[1] - ylim[0]), f'{x_data[-1]:.2f}', 
+            ha='center', va='top', fontsize=8, rotation=0)
+    
 if __name__ == "__main__":
     # %% Import modules
     import matplotlib.pyplot as plt
@@ -51,8 +97,9 @@ if __name__ == "__main__":
     from Our_values import*
     from lacbox.test import test_data_path
     import copy
+    import matplotlib.ticker as ticker
 
-
+    plt.rcParams.update({'font.family': 'serif', 'font.size': 12})
     # %% Inputs
     # Baseline ST-data (DTU 10MW)
     script_dir = Path(__file__).parent
@@ -67,15 +114,14 @@ if __name__ == "__main__":
     R_old = R_X
     R_new = R_Y # !! Use your own values !!
     scale_factor = R_new / R_old
+    print(scale_factor, scale_factor**2,scale_factor**3,scale_factor**4)
 
     # %% Scaling ST-data
     st_data = scale_ST_data(st_data_DTU10MW, scale_factor)
     #print(st_data)
     #print(st_data_DTU10MW)
 
-    
     # %% Plotting scaled and baseline data
-
     # Plotting m, I_x, I_y, I_p, S_chord, S_thickness
     fig, axs = plt.subplots(3, 1, figsize=(7, 6))
     # m_d
@@ -84,13 +130,31 @@ if __name__ == "__main__":
     ax.plot(st_data_DTU10MW["s"], st_data_DTU10MW["m"], label="DTU 10MW")
     ax.set_ylabel("$m$ [kg/m]")
     ax.grid()
+    # Annotate first and last points for both curves
+    #annotate_points(ax, st_data["s"], st_data["m"], "scaled")
+    #annotate_points(ax, st_data_DTU10MW["s"], st_data_DTU10MW["m"], "DTU 10MW")
+
+    # Display lines for both curves
+    display_lines(ax, st_data["s"], st_data["m"], "scaled", stagger_offset=0.03)
+    display_lines(ax, st_data_DTU10MW["s"], st_data_DTU10MW["m"], "DTU 10MW", stagger_offset=0.1)
+
+
     # I_x
     ax = axs[1]
     ax.plot(st_data["s"], st_data["I_x"], label="scaled")
     ax.plot(st_data_DTU10MW["s"], st_data_DTU10MW["I_x"], label="DTU 10MW")
     ax.set_ylabel("$I_x$ [m$^4$]")
+    ax.set_ylim([0, 5.99])
     ax.grid()
     ax.legend()
+    # Annotate first and last points for both curves
+    #annotate_points(ax, st_data["s"], st_data["I_x"], "scaled")
+    #annotate_points(ax, st_data_DTU10MW["s"], st_data_DTU10MW["I_x"], "DTU 10MW")
+
+    # Display lines for both curves
+    display_lines(ax, st_data["s"], st_data["I_x"], "scaled", stagger_offset=0.03)
+    display_lines(ax, st_data_DTU10MW["s"], st_data_DTU10MW["I_x"], "DTU 10MW", stagger_offset=0.1)
+
     # I_y
     ax = axs[2]
     ax.plot(st_data["s"], st_data["I_y"], label="scaled")
@@ -98,9 +162,17 @@ if __name__ == "__main__":
     ax.set_ylabel("$I_y$ [m$^4$]")
     ax.set_xlabel("Curve length $r$ [m]")
     ax.grid()
+    
+    # Annotate first and last points for both curves
+    #annotate_points(ax, st_data["s"], st_data["I_y"], "scaled")
+    #annotate_points(ax, st_data_DTU10MW["s"], st_data_DTU10MW["I_y"], "DTU 10MW")
+
+    # Display lines for both curves
+    display_lines(ax, st_data["s"], st_data["I_y"], "scaled", stagger_offset=0.03)
+    display_lines(ax, st_data_DTU10MW["s"], st_data_DTU10MW["I_y"], "DTU 10MW", stagger_offset=0.1)
 
     fig.tight_layout()
-    #plt.close()
+    plt.savefig("4-Mass and inertia redesign.pdf")
     plt.show()
 
     # create rigid data
@@ -134,24 +206,22 @@ if __name__ == "__main__":
     flex_path = script_dir / 'hawc_files/our_design/data/Group1_redesign_flex.opt'
     flex_data = load_oper(flex_path)
 
-
-
     #print(rigid_data.keys())
 
-    # plotting omega and pitch as function of ws
-    fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(18,8))
 
-    axs1[0].plot(rigid_data['ws_ms'], rigid_data['rotor_speed_rpm'], label='redesign')
-    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['rotor_speed_rpm'], label='DTU_10')
+    fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(10,4))
+
+    axs1[0].plot(rigid_data['ws_ms'], rigid_data['rotor_speed_rpm'], label='rigid redesign')
+    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['rotor_speed_rpm'], label='DTU 10 MW')
     axs1[0].plot(flex_data['ws_ms'], flex_data['rotor_speed_rpm'], label='flex redesign')
     axs1[0].set_xlabel("wind speed [m/s]")
     axs1[0].set_ylabel("Rotor speed [rpm]")
     axs1[0].legend()
     axs1[0].grid(True)
 
-    axs1[1].plot(rigid_data['ws_ms'], rigid_data['pitch_deg'], label='redesign')
-    axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['pitch_deg'], label='DTU_10')
-    axs1[1].plot(flex_data['ws_ms'], flex_data['pitch_deg'], label='flex redesign')
+    axs1[1].plot(rigid_data['ws_ms'], rigid_data['pitch_deg'])
+    axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['pitch_deg'])
+    axs1[1].plot(flex_data['ws_ms'], flex_data['pitch_deg'])
     axs1[1].set_xlabel("wind speed [m/s]")
     axs1[1].set_ylabel("pitch [deg]")
     axs1[1].legend()
@@ -159,66 +229,90 @@ if __name__ == "__main__":
 
     # Adjust layout and show the figure
     plt.tight_layout()
-    plt.close()
-    #plt.show()
-
-    # plotting P and T as function of ws
-    # Side-by-side plots of the aerodynamic power (left plot) and its coefficient (right plot), and the thrust (left plot) and its coefficient (right plot) versus wind speed
-    fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(18,8))
-
-    axs1[0].plot(rigid_data['ws_ms'], rigid_data['power_kw'], label='redesign')
-    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['power_kw'], label='DTU_10')
-    axs1[0].plot(flex_data['ws_ms'], flex_data['power_kw'], label='flex redesign')
-    axs1[0].set_ylabel("Power [kW]")
-    axs1[0].set_xlabel("Wind speed [m/s]")
-    axs1[0].legend()
-    axs1[0].grid(True)
-
-    axs1[1].plot(rigid_data['ws_ms'], rigid_data['thrust_kn'], label='redesign')
-    axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['thrust_kn'], label='DTU_10')
-    axs1[1].plot(flex_data['ws_ms'], flex_data['thrust_kn'], label='flex redesign')
-    axs1[1].set_xlabel("wind speed [m/s]")
-    axs1[1].set_ylabel("thrust [kN]")
-    axs1[1].legend()
-    axs1[1].grid(True)
-
-    # Adjust layout and show the figure
-    plt.tight_layout()
-    #plt.show()
-
-
-    # plotting CP and CT as function of ws
+    plt.savefig("04_pitch and rot speed.pdf")
+    plt.show()
 
     rho = 1.225
-    CP_rigid = rigid_data['power_kw'] / (0.5 * rho * rigid_data['ws_ms']**3 * np.pi*R_Y**2)*1e3
-    CP_flex = flex_data['power_kw'] / (0.5 * rho * flex_data['ws_ms']**3 * np.pi*R_Y**2)*1e3
+    CP_redesign = rigid_data['power_kw'] / (0.5 * rho * rigid_data['ws_ms']**3 * np.pi*R_Y**2)*1e3
     CP_DTU_10 = rigid_DTU_10_data['power_kw'] / (0.5 * rho * rigid_DTU_10_data['ws_ms']**3 * np.pi*R_X**2)*1e3
+    CP_flex = flex_data['power_kw'] / (0.5 * rho * flex_data['ws_ms']**3 * np.pi*R_Y**2)*1e3
 
-    CT_rigid = rigid_data['thrust_kn'] / (0.5 * rho * rigid_data['ws_ms']**2 * np.pi*R_Y**2)*1e3
-    CT_flex = flex_data['thrust_kn'] / (0.5 * rho * flex_data['ws_ms']**2 * np.pi*R_Y**2)*1e3
+    CT_redesign = rigid_data['thrust_kn'] / (0.5 * rho * rigid_data['ws_ms']**2 * np.pi*R_Y**2)*1e3
     CT_DTU_10 = rigid_DTU_10_data['thrust_kn'] / (0.5 * rho * rigid_DTU_10_data['ws_ms']**2 * np.pi*R_X**2)*1e3
-    
-    fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(18,8))
+    CT_flex = flex_data['thrust_kn'] / (0.5 * rho * flex_data['ws_ms']**2 * np.pi*R_Y**2)*1e3
 
-    axs1[0].plot(rigid_data['ws_ms'], CP_rigid, label='redesign')
-    axs1[0].plot(rigid_DTU_10_data['ws_ms'], CP_DTU_10, label='DTU_10')
-    axs1[0].plot(flex_data['ws_ms'], CP_flex, label='flex redesign')
-    axs1[0].set_ylabel("Power coefficient")
+
+
+    # Side-by-side plots of the aerodynamic power (left plot) and its coefficient (right plot), and the thrust (left plot) and its coefficient (right plot) versus wind speed
+    fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(10,4))
+
+    axs1[0].plot(rigid_data['ws_ms'], rigid_data['power_kw']/1000, label='rigid redesign')
+    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['power_kw']/1000, label='DTU 10 MW')
+    axs1[0].plot(flex_data['ws_ms'], flex_data['power_kw']/1000, label='flex redesign')
+    axs1[0].set_ylabel("Power [MW]")
     axs1[0].set_xlabel("Wind speed [m/s]")
     axs1[0].legend()
     axs1[0].grid(True)
+
+    axs1[1].yaxis.set_major_formatter(ticker.ScalarFormatter(useMathText=True))
+    axs1[1].ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+    axs1[1].plot(rigid_data['ws_ms'], CP_redesign)
+    axs1[1].plot(rigid_DTU_10_data['ws_ms'], CP_DTU_10)
+    axs1[1].plot(flex_data['ws_ms'], CP_flex)
+    axs1[1].set_ylabel("CP")
+    axs1[1].set_xlabel("Wind speed [m/s]")
+    axs1[1].legend()
+    axs1[1].grid(True)
     #axs1[0].set_ylim(8000,10000)
     #axs1[0].set_xlim(10,12)
 
-    axs1[1].plot(rigid_data['ws_ms'], CT_rigid, label='redesign')
-    axs1[1].plot(rigid_DTU_10_data['ws_ms'], CT_DTU_10, label='DTU_10')
-    axs1[1].plot(flex_data['ws_ms'], CT_flex, label='flex redesign')
+    # Adjust layout and show the figure
+    plt.tight_layout()
+    plt.savefig("04_Power.pdf")
+    plt.show()
+
+
+
+    fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(10,4))
+    axs1[0].plot(rigid_data['ws_ms'], rigid_data['thrust_kn']/1000, label='rigid redesign')
+    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['thrust_kn']/1000, label='DTU 10 MW')
+    axs1[0].plot(flex_data['ws_ms'], flex_data['thrust_kn']/1000, label='flex redesign')
+    axs1[0].set_xlabel("wind speed [m/s]")
+    axs1[0].set_ylabel("thrust [MN]")
+    axs1[0].legend()
+    axs1[0].grid(True)
+
+    axs1[1].yaxis.set_major_formatter(ticker.ScalarFormatter(useMathText=True))
+    axs1[1].ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+    axs1[1].plot(rigid_data['ws_ms'], CT_redesign)
+    axs1[1].plot(rigid_DTU_10_data['ws_ms'], CT_DTU_10)
+    axs1[1].plot(flex_data['ws_ms'], CT_flex)
     axs1[1].set_xlabel("wind speed [m/s]")
-    axs1[1].set_ylabel("Thrust coefficient")
+    axs1[1].set_ylabel("CT")
     axs1[1].legend()
     axs1[1].grid(True)
 
     # Adjust layout and show the figure
     plt.tight_layout()
-    plt.close()
-    #plt.show()
+    plt.savefig("04_Thrust.pdf")
+    plt.show()
+    
+    # power improvement
+    imp = (rigid_data['power_kw'] - rigid_DTU_10_data['power_kw']) / rigid_DTU_10_data['power_kw']*100
+    imp_1 = (flex_data['power_kw'] - rigid_DTU_10_data['power_kw']) / rigid_DTU_10_data['power_kw']*100
+    imp_2 = (flex_data['power_kw'] - rigid_data['power_kw']) / rigid_data['power_kw']*100
+    print(imp)  
+
+    plt.figure()
+    plt.title('improvement')
+    plt.plot(rigid_data['ws_ms'], imp, label="rigid design vs DTU")
+    plt.plot(rigid_data['ws_ms'], imp_1, label="flexible design vs DTU")
+    plt.plot(rigid_data['ws_ms'], imp_2, label="flexible design vs rigid")
+    plt.ylabel("improvement in Power %]")
+    plt.xlabel("Wind speed [m/s]")
+    plt.grid(True)
+    plt.legend()
+    plt.savefig("04_improvement.pdf")
+    plt.show()
+
+# %%
