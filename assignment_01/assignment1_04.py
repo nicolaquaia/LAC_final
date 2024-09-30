@@ -246,13 +246,17 @@ if __name__ == "__main__":
     axs1[0].legend()
     axs1[0].grid(True)
 
-    axs1[1].plot(rigid_data['ws_ms'], rigid_data['thrust_kn']/1000, label='rigid redesign')
-    axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['thrust_kn']/1000, label='DTU 10 MW')
-    axs1[1].plot(flex_data['ws_ms'], flex_data['thrust_kn']/1000, label='flex redesign')
-    axs1[1].set_xlabel("wind speed [m/s]")
-    axs1[1].set_ylabel("thrust [MN]")
+    axs1[1].yaxis.set_major_formatter(ticker.ScalarFormatter(useMathText=True))
+    axs1[1].ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+    axs1[1].plot(rigid_data['ws_ms'], rigid_data['power_kw']/(rigid_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='rigid redesign')
+    axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['power_kw']/(rigid_DTU_10_data['ws_ms']**3*1/2*np.pi*R_X**2*1.225), label='DTU 10 MW')
+    axs1[1].plot(flex_data['ws_ms'], flex_data['power_kw']/(flex_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
+    axs1[1].set_ylabel("CP")
+    axs1[1].set_xlabel("Wind speed [m/s]")
     axs1[1].legend()
     axs1[1].grid(True)
+    #axs1[0].set_ylim(8000,10000)
+    #axs1[0].set_xlim(10,12)
 
     # Adjust layout and show the figure
     plt.tight_layout()
@@ -261,17 +265,15 @@ if __name__ == "__main__":
 
     fig1, axs1 = plt.subplots(1, 2, num=2, clear=True, figsize=(10,4))
 
-    axs1[0].yaxis.set_major_formatter(ticker.ScalarFormatter(useMathText=True))
-    axs1[0].ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-    axs1[0].plot(rigid_data['ws_ms'], rigid_data['power_kw']/(rigid_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='rigid redesign')
-    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['power_kw']/(rigid_DTU_10_data['ws_ms']**3*1/2*np.pi*R_X**2*1.225), label='DTU 10 MW')
-    axs1[0].plot(flex_data['ws_ms'], flex_data['power_kw']/(flex_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
-    axs1[0].set_ylabel("CP")
-    axs1[0].set_xlabel("Wind speed [m/s]")
+
+
+    axs1[0].plot(rigid_data['ws_ms'], rigid_data['thrust_kn']/1000, label='rigid redesign')
+    axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['thrust_kn']/1000, label='DTU 10 MW')
+    axs1[0].plot(flex_data['ws_ms'], flex_data['thrust_kn']/1000, label='flex redesign')
+    axs1[0].set_xlabel("wind speed [m/s]")
+    axs1[0].set_ylabel("thrust [MN]")
     axs1[0].legend()
     axs1[0].grid(True)
-    #axs1[0].set_ylim(8000,10000)
-    #axs1[0].set_xlim(10,12)
 
     axs1[1].yaxis.set_major_formatter(ticker.ScalarFormatter(useMathText=True))
     axs1[1].ticklabel_format(style='sci', axis='y', scilimits=(0,0))
@@ -286,6 +288,23 @@ if __name__ == "__main__":
     # Adjust layout and show the figure
     plt.tight_layout()
     plt.savefig("4-Power and Thrust coefficients.pdf")
+    plt.show()
+    
+    # power improvement
+    imp = (rigid_data['power_kw'] - rigid_DTU_10_data['power_kw']) / rigid_DTU_10_data['power_kw']*100
+    imp_1 = (flex_data['power_kw'] - rigid_DTU_10_data['power_kw']) / rigid_DTU_10_data['power_kw']*100
+    imp_2 = (flex_data['power_kw'] - rigid_data['power_kw']) / rigid_data['power_kw']*100
+    print(imp)  
+
+    plt.figure()
+    plt.title('improvement')
+    plt.plot(rigid_data['ws_ms'], imp, label="rigid design")
+    plt.plot(rigid_data['ws_ms'], imp_1, label="flexible design")
+    plt.plot(rigid_data['ws_ms'], imp_2, label="flexible design vs rigid")
+    plt.ylabel("improvement in Power %]")
+    plt.xlabel("Wind speed [m/s]")
+    plt.grid(True)
+    plt.legend()
     plt.show()
 
 # %%
