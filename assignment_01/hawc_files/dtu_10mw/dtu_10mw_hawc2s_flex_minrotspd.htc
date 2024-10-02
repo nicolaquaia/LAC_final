@@ -105,38 +105,38 @@
       node_distribution	c2_def;
       damping_posdef	0 0 0 0.00153 0.00255 0.00033;	3% damping tuned by tkim 23/03/13, unable to fit 3rd and higher mode
       begin timoschenko_input;
-        filename	./data/Group1_RWT_Blade_st.dat;
+        filename	./data/DTU_10MW_RWT_Blade_st.dat;
         set	1 1;	1 1=flexibe, 1 2=stiff
       end timoschenko_input;
       begin c2_def;	definition of centerline in main_body coordinates
         nsec	27;
-        sec	1 0 7.006e-05 4.61314e-16 -20;
-        sec	2 -2.06477e-05 -0.0122119 3.11636 -20;
-        sec	3 -0.0072881 -0.0249251 6.23272 -20;
-        sec	4 -0.0189235 -0.0273351 7.27155 -20;
-        sec	5 -0.0541282 -0.0282163 9.03797 -20;
-        sec	6 -0.126633 -0.021321 10.8055 -20;
-        sec	7 -0.225666 -0.0128378 12.678 -20;
-        sec	8 -0.288563 -0.00770659 13.7187 -20;
-        sec	9 -0.399194 -0.00488317 15.5922 -20;
-        sec	10 -0.576634 -0.0180296 18.9216 -19.9905;
-        sec	11 -0.707136 -0.0501772 22.2485 -18.3807;
-        sec	12 -0.791081 -0.0941228 25.5738 -15.4265;
-        sec	13 -0.837195 -0.14888 28.8983 -12.7913;
-        sec	14 -0.853948 -0.214514 32.2225 -10.1286;
-        sec	15 -0.849367 -0.290618 35.547 -7.84484;
-        sec	16 -0.79392 -0.462574 41.7804 -4.22672;
-        sec	17 -0.716284 -0.688437 48.43 -1.31311;
-        sec	18 -0.634358 -0.960017 55.0798 0.237217;
-        sec	19 -0.553179 -1.28424 61.7294 1.34;
-        sec	20 -0.475422 -1.66402 68.3786 2.11584;
-        sec	21 -0.40318 -2.10743 75.0275 2.72543;
-        sec	22 -0.330085 -2.6563 82.0918 3.26788;
-        sec	23 -0.31014 -2.78882 83.6501 3.37596;
-        sec	24 -0.286719 -2.92517 85.2087 3.47986;
-        sec	25 -0.255823 -3.06577 86.7671 3.57954;
-        sec	26 -0.207891 -3.20952 88.3256 3.67655;
-        sec	27 -0.089894 -3.33685 89.7153 3.76008;
+        sec	1 0 7.006e-05 4.44089e-16 -14.5;
+        sec	2 -2.06477e-05 -0.0122119 3 -14.5;
+        sec	3 -0.0072881 -0.0249251 6 -14.4851;
+        sec	4 -0.0189235 -0.0273351 7.00004 -14.461;
+        sec	5 -0.0541282 -0.0282163 8.70051 -14.3388;
+        sec	6 -0.126633 -0.021321 10.402 -14.0201;
+        sec	7 -0.225666 -0.0128378 12.2046 -13.3904;
+        sec	8 -0.288563 -0.00770659 13.2065 -12.9371;
+        sec	9 -0.399194 -0.00488317 15.01 -11.9445;
+        sec	10 -0.576634 -0.0180296 18.2151 -9.98243;
+        sec	11 -0.707136 -0.0501772 21.4178 -8.45147;
+        sec	12 -0.791081 -0.0941228 24.6189 -7.46417;
+        sec	13 -0.837195 -0.14888 27.8193 -6.72916;
+        sec	14 -0.853948 -0.214514 31.0194 -6.08842;
+        sec	15 -0.849367 -0.290618 34.2197 -5.49322;
+        sec	16 -0.79392 -0.462574 40.2204 -4.39222;
+        sec	17 -0.716284 -0.688437 46.6217 -3.09315;
+        sec	18 -0.634358 -0.960017 53.0232 -1.75629;
+        sec	19 -0.553179 -1.28424 59.4245 -0.50065;
+        sec	20 -0.475422 -1.66402 65.8255 0.601964;
+        sec	21 -0.40318 -2.10743 72.2261 1.5556;
+        sec	22 -0.330085 -2.6563 79.0266 2.51935;
+        sec	23 -0.31014 -2.78882 80.5267 2.7295;
+        sec	24 -0.286719 -2.92517 82.0271 2.93201;
+        sec	25 -0.255823 -3.06577 83.5274 3.11874;
+        sec	26 -0.207891 -3.20952 85.0277 3.28847;
+        sec	27 -0.089894 -3.33685 86.3655 3.42796;
       end c2_def;
     end main_body;
 ;
@@ -307,15 +307,15 @@
     end rotating_threebladed_substructure;
 ;
 ; path to opt file, used for all commands EXCEPT compute_optimal_pitch_angle
-    operational_data_filename	./data/dtu_10mw_rigid.opt;	
+    operational_data_filename	./data/dtu_10mw_flex_minrotspd.opt;	
 ;
 ; settings for compute_optimal_pitch_angle
     begin operational_data;
       windspeed	4 25 22;	cut-in [m/s], cut-out [m/s], points [-] -- used if operational_data_file_wind is 0
-      genspeed	0 416.8934131499202;	min, max generator speed [rpm]
+      genspeed	300 480;	min, max generator speed [rpm]
       gearratio	50;	gear ratio [-]
       minpitch	0;	min. pitch angle [deg]
-      opt_lambda	7.263157;	optimal TSR [-]
+      opt_lambda	8;	optimal TSR [-]
       maxpow	10638.3;	rated aerodynamic power [kW]
       prvs_turbine	1;	1=pitch-regulated, variable-speed turbine
       operational_data_file_wind	1;	0=use wind defined in windspeed, 1=use wind defined in operational_data_filename above
@@ -325,9 +325,9 @@
     ; 
 ; HAWC2S commands (uncomment as needed)
     output_folder	res_hawc2s;	define the folder where generated files should be saved
-    compute_optimal_pitch_angle	use_operational_data;	re-calculate and save opt file (pitch/rotor speed curve)
-    ;compute_steady_states	bladedeform tipcorrect induction nogradients;	compute steady states -- needed for aeroelastic calculations
-    ;save_power	;	save steady-state values to .pwr
+    ;compute_optimal_pitch_angle	use_operational_data;	re-calculate and save opt file (pitch/rotor speed curve)
+    compute_steady_states	bladedeform tipcorrect induction nogradients;	compute steady states -- needed for aeroelastic calculations
+    save_power	;	save steady-state values to .pwr
     ;save_induction	;	save steady-state spanwise values to .ind files, 3 for each wind speed
     ;compute_stability_analysis	windturbine 12;	compute/save aeroelastic campbell diagram (.cmb), XX modes
     ;save_modal_amplitude	;	save modal amplitudes and phrases to .amb file

@@ -32,3 +32,6 @@ if __name__ == '__main__':
 
     # make rigid hawc2s file for multi-tsr opt file
     htc = MyHTC(ORIG_PATH)
+
+
+    print('check if desing conditions are actually inserted in the htc file!!!')
