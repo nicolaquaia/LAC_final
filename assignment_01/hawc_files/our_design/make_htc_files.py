@@ -16,7 +16,10 @@ if __name__ == '__main__':
                     opt_path='./data/Group1_redesign_1wsp.opt',
                     compute_steady_states=True,
                     save_power=True,
-                    save_induction=True)
+                    save_induction=True,
+                    minpitch = 0,
+                    opt_lambda=7.263157,
+                    genspeed= (0, 50*8.337868262998404))
 
     htc = MyHTC(ORIG_PATH)
     # make rigid hawc2s file for multi-wsp opt file
@@ -26,9 +29,11 @@ if __name__ == '__main__':
                     opt_path='./data/Group1_redesign_multiwsp.opt',
                     compute_steady_states=True,
                     save_power=True,
-                    save_induction=True)
+                    save_induction=True,
+                    minpitch = 0,
+                    opt_lambda=7.263157,
+                    genspeed= (0, 50*8.337868262998404))
                     
-    
     htc = MyHTC(ORIG_PATH)
     # make rigid hawc2s file for compute rigid opt file
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
@@ -38,7 +43,20 @@ if __name__ == '__main__':
                     compute_steady_states=False,
                     save_power=False,
                     compute_optimal_pitch_angle = True,
-                    minpitch = 0.000000,
+                    minpitch = 0,
+                    opt_lambda=7.263157,
+                    genspeed= (0, 50*8.337868262998404))
+    
+    htc = MyHTC(ORIG_PATH)
+    # make rigid hawc2s file for compute rigid opt file
+    htc.make_hawc2s(SAVE_HAWC2S_DIR,
+                    rigid=False,
+                    append='_hawc2s_compute_flex_opt',
+                    opt_path='./data/dtu_10mw_rigid.opt',
+                    compute_steady_states=False,
+                    save_power=False,
+                    compute_optimal_pitch_angle = True,
+                    minpitch = 0,
                     opt_lambda=7.263157,
                     genspeed= (0, 50*8.337868262998404))
     
