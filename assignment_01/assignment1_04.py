@@ -210,10 +210,7 @@ if __name__ == "__main__":
 
 
     script_dir = Path(__file__).parent
-    flex_path = script_dir / 'hawc_files/our_design/data/Group1_redesign_flex.opt'
-    flex_data = load_oper(flex_path)
-
-    flex_path_bis = script_dir / 'hawc_files/our_design/data/Group1_redesign_flex[2].opt'
+    flex_path_bis = script_dir / 'hawc_files/our_design/data/Group1_redesign_flex.opt'
     flex_data_bis = load_oper(flex_path_bis)
 
     print(rigid_data.keys())
