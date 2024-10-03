@@ -78,6 +78,7 @@ if __name__ == '__main__':
                     rigid=False,
                     append='_hawc2s_camp',
                     opt_path='./data/Group1_camp_diagram.opt',
+                    cmb_path='./data/Group1_camp_diagram.cmb',
                     compute_steady_states=True,
                     compute_stability_analysis=True,
                     save_modal_amplitude=True,
