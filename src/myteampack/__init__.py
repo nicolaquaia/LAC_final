@@ -100,7 +100,7 @@ class MyHTC(HTCFile):
         self.save((save_dir / (name + '.htc')).as_posix())
 
     def make_hawc2s(self, save_dir, rigid, append, opt_path, minpitch=0.001070, opt_lambda=8,
-                    genspeed=(0, 480), **kwargs):
+                    genspeed=(0, 480), gearratio = 50,**kwargs ):
         """Make a HAWC2S file with specific settings.
 
         Args:
@@ -129,9 +129,54 @@ class MyHTC(HTCFile):
         # modification
         self.hawcstab2.operational_data.minpitch = minpitch
         self.hawcstab2.operational_data.opt_lambda = opt_lambda
+        self.hawcstab2.operational_data.gearratio = gearratio
         # add hawc2s commands
 
         self._add_hawc2s_commands(rigid=rigid, **kwargs)
         # update filename and save the file
+        self._update_name_and_save(save_dir, append)
+        print(f'File "{append}" saved.')
+
+
+    def make_hawc2s_ctrltune(self, save_dir, rigid, append, opt_path, minpitch=0.001070, opt_lambda=8,
+                    genspeed=(0, 480), gearratio = 50,    partial_load = (0.05, 0.7),
+                    full_load= (0.06, 0.7), gain_scheduling = 2, constant_power = 1, regions = (5, 10, 12, 31), **kwargs ):
+        """Make a HAWC2S file with specific settings.
+
+        Args:
+            save_dir (str/pathlib.Path): Path to folder where the htc file
+                should be saved.
+            rigid (boolean): Whether HAWC2S analysis should be a rigid or flexible
+                structure.
+            append (str): Text to append to the name of the master file.
+            opt_path (str): Relative path from the saved htc file to the opt_file.
+            genspeed (tuple, optional): 2-element tuple of minimum and maximum generator
+                speed. Defaults to (0, 480).
+        """
+        # verify the file has hawcstab2 block
+        self._check_hawcstab2()
+        # delete blocks in master htc file that HAWC2S doesn't use
+        self._del_not_h2s_blocks()
+        # update the flexibility parameter in operational_data subblock
+        defl_flag = [1, 0][rigid]  # 0 if rigid=True, else 1
+        self.hawcstab2.operational_data.include_torsiondeform = defl_flag
+        # correct the path to the opt file
+        self.hawcstab2.operational_data_filename = opt_path
+        # update the minimum generator speed
+        self.hawcstab2.operational_data.genspeed = genspeed
+        # add hawc2s commands
+
+        # modification
+        self.hawcstab2.operational_data.minpitch = minpitch
+        self.hawcstab2.operational_data.opt_lambda = opt_lambda
+        self.hawcstab2.operational_data.gearratio = gearratio
+        # add hawc2s commands
+
+
+
+        self._add_hawc2s_commands(rigid=rigid, **kwargs)
+        # update filename and save the file
+        self._add_ctrltune_block(partial_load,full_load,gain_scheduling,constant_power, regions, **kwargs)
+
         self._update_name_and_save(save_dir, append)
         print(f'File "{append}" saved.')
