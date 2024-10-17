@@ -30,7 +30,7 @@ if __name__ == '__main__':
     htc = MyHTC(ORIG_PATH)
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                 rigid=False,
-                append='_hawc2s_25wsp',
+                append='_hawc2s_21wsp',
                 opt_path='./data/dtu_10mw_3_columns.opt',
                 compute_steady_states=False,
                 compute_optimal_pitch_angle=True,
@@ -42,12 +42,14 @@ if __name__ == '__main__':
                 maxpow = 10641.618
                 )
     
+    
     # make flex hawc2s file from lecture 6, step 2 and 3
+    # remove region
     htc = MyHTC(ORIG_PATH)
     htc.make_hawc2s_ctrltune(SAVE_HAWC2S_DIR,
                 rigid=False,
-                append='_hawc2s_25wsp_ctrltune',
-                opt_path='./res_hawc2s/dtu_10mw_hawc2s_25wsp.opt',
+                append='_hawc2s_21wsp_ctrltune',
+                opt_path='./data/dtu_10mw_flex2.opt',
                 compute_steady_states=True,
                 compute_controller_input = True,
                 save_power = True,
@@ -62,7 +64,7 @@ if __name__ == '__main__':
                 constant_power = 1
                 )
   
-
+    '''
     htc = MyHTC(ORIG_PATH)
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=False,
@@ -118,3 +120,4 @@ if __name__ == '__main__':
                         gain_scheduling = 2,
                         constant_power = data_fqc_damp[2][k]
                         )
+    '''
