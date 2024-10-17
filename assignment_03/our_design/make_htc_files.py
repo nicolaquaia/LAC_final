@@ -7,69 +7,41 @@ from myteampack import MyHTC
 if __name__ == '__main__':
     ORIG_PATH = './_master/Group1_redesign.htc'
     SAVE_HAWC2S_DIR = '.'
-
-    # make rigid hawc2s file for single-wsp opt file
-    htc = MyHTC(ORIG_PATH)
-    htc.make_hawc2s(SAVE_HAWC2S_DIR,
-                    rigid=True,
-                    append='_hawc2s_1wsp',
-                    opt_path='./data/Group1_redesign_1wsp.opt',
-                    compute_steady_states=True,
-                    save_power=True,
-                    save_induction=True,
-                    minpitch = 0,
-                    opt_lambda=7.263157,
-                    genspeed= (0, 50*8.337868262998404))
-
-    # make rigid hawc2s file for multi-wsp opt file
-    htc = MyHTC(ORIG_PATH)
-    htc.make_hawc2s(SAVE_HAWC2S_DIR,
-                    rigid=True,
-                    append='_hawc2s_multiwsp',
-                    opt_path='./data/Group1_redesign_multiwsp.opt',
-                    compute_steady_states=True,
-                    save_power=True,
-                    save_induction=True,
-                    minpitch = 0,
-                    opt_lambda=7.263157,
-                    genspeed= (0, 50*8.337868262998404))
-                    
-    # make rigid hawc2s file for compute rigid opt file
-    htc = MyHTC(ORIG_PATH)
-    htc.make_hawc2s(SAVE_HAWC2S_DIR,
-                    rigid=True,
-                    append='_hawc2s_compute_rigid_opt',
-                    opt_path='./data/dtu_10mw_rigid.opt',
-                    compute_steady_states=False,
-                    save_power=False,
-                    compute_optimal_pitch_angle = True,
-                    minpitch = 0,
-                    opt_lambda=7.263157,
-                    genspeed= (0, 50*8.337868262998404))
     
-    # make rigid hawc2s file for compute rigid opt file
+    # make flex hawc2s file from lecture 6, step 1
     htc = MyHTC(ORIG_PATH)
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
-                    rigid=False,
-                    append='_hawc2s_compute_flex_opt',
-                    opt_path='./data/dtu_10mw_rigid.opt',
-                    compute_steady_states=False,
-                    save_power=False,
-                    compute_optimal_pitch_angle = True,
-                    minpitch = 0,
-                    opt_lambda=7.263157,
-                    genspeed= (0, 50*8.337868262998404))
-
-    # make rigid hawc2s file for compute rigid opt file
+                rigid=False,
+                append='_hawc2s_flex',
+                opt_path='./data/Group1_redesign_3_columns.opt',
+                compute_steady_states=False,
+                compute_optimal_pitch_angle=True,
+                save_power=False,
+                genspeed= (3, 8.337868262998404),
+                gearratio = 1.0,
+                minpitch = 0,
+                opt_lambda=7.263157,
+                maxpow = 10641.618
+                )
+    
+    # make flex hawc2s file from lecture 6, step 2 and 3
+    # remove region
     htc = MyHTC(ORIG_PATH)
-    htc.make_hawc2s(SAVE_HAWC2S_DIR,
-                    rigid=False,
-                    append='_hawc2s_flex',
-                    opt_path='./data/Group1_redesign_flex.opt',
-                    compute_steady_states=False,
-                    save_power=False,
-                    compute_optimal_pitch_angle = True,
-                    minpitch = 0,
-                    opt_lambda=7.263157,
-                    genspeed= (0, 50*8.337868262998404))
+    htc.make_hawc2s_ctrltune(SAVE_HAWC2S_DIR,
+                rigid=False,
+                append='_hawc2s_ctrltune',
+                opt_path='./data/Group1_redesign_flex2.opt',
+                compute_steady_states=True,
+                compute_controller_input = True,
+                save_power = True,
+                genspeed= (3, 8.337868262998404),
+                gearratio = 1.0,
+                minpitch = 0,
+                opt_lambda=7.263157,
+                maxpow = 10641.618,
+                partial_load = (0.05, 0.7),
+                full_load = (0.06, 0.7),
+                gain_scheduling = 2,
+                constant_power = 1
+                )
     
