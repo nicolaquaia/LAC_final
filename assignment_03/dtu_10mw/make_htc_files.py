@@ -19,7 +19,6 @@ if __name__ == '__main__':
 
     # make rigid hawc2s file for multi-tsr opt file
     htc = MyHTC(ORIG_PATH)
-
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=True,
                     append='_hawc2s_7wsp',
@@ -27,10 +26,23 @@ if __name__ == '__main__':
                     compute_steady_states=True,
                     save_power=True)
 
-    # make rigid hawc2s file for multi-tsr opt file
+    # make flex hawc2s file from lecture 6, step 1
     htc = MyHTC(ORIG_PATH)
-
-    """htc.make_hawc2s(SAVE_HAWC2S_DIR,
+    htc.make_hawc2s(SAVE_HAWC2S_DIR,
+                rigid=False,
+                append='_hawc2s_25wsp',
+                opt_path='./data/dtu_10mw_3_columns.opt',
+                compute_steady_states=False,
+                compute_optimal_pitch_angle=True,
+                save_power=False,
+                genspeed= (6, 9.6),
+                genratio = 1.0,
+                minpitch = 0,
+                opt_lambda=7.5,
+                maxpow = 10641.618
+                )
+  
+    htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=False,
                     append='_hawc2s_camp',
                     opt_path='./data/dtu_10mw_flex_minrotspd.opt',
@@ -44,7 +56,7 @@ if __name__ == '__main__':
                     genratio = 1.0,
                     maxpow = 10641.618,
                     )    
-    """
+    
     # INSERT CODE HERE WHEN PROMPTED (A0)
  
     # make ctrltune
