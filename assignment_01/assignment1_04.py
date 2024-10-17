@@ -74,14 +74,10 @@ def display_lines(ax, x_data, y_data, label, stagger_offset=0.1):
     # Adjust text positions to avoid overlapping
     ylim = ax.get_ylim()
     xlim = ax.get_xlim()
-    
     # First point
-    ax.axhline(y_data[0], color='red', linestyle='--', linewidth=0.8)
-    
-    # Display x and y values with slight offsets
-    ax.text(xlim[0] - stagger_offset * (4), y_data[0], f'{y_data[0]:.2f}', 
-            ha='right', va='center', fontsize=8)
-    
+    ax.axhline(y_data[0], color='red', linestyle='--', linewidth=0.8)    # Display x and y values with slight offsets
+    ax.text(xlim[0] - stagger_offset * (4), y_data[0], f'{y_data[0]:.2f}',
+                ha='right', va='center', fontsize=8)
     # Last point
     ax.axvline(x_data[-1], color='green', linestyle='--', linewidth=0.8)
     
@@ -210,8 +206,8 @@ if __name__ == "__main__":
 
 
     script_dir = Path(__file__).parent
-    flex_path_bis = script_dir / 'hawc_files/our_design/data/Group1_redesign_flex.opt'
-    flex_data_bis = load_oper(flex_path_bis)
+    flex_path = script_dir / 'hawc_files/our_design/data/Group1_redesign_flex.opt'
+    flex_data = load_oper(flex_path)
 
     print(rigid_data.keys())
 
@@ -221,7 +217,7 @@ if __name__ == "__main__":
     axs1[0].plot(rigid_data['ws_ms'], rigid_data['rotor_speed_rpm'], label='rigid redesign')
     axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['rotor_speed_rpm'], label='DTU 10 MW')
     #axs1[0].plot(flex_data['ws_ms'], flex_data['rotor_speed_rpm'], label='flex redesign')
-    axs1[0].plot(flex_data_bis['ws_ms'], flex_data_bis['rotor_speed_rpm'], label='flex redesign')
+    axs1[0].plot(flex_data['ws_ms'], flex_data['rotor_speed_rpm'], label='flex redesign')
     axs1[0].set_xlabel("wind speed [m/s]")
     axs1[0].set_ylabel("Rotor speed [rpm]")
     axs1[0].legend()
@@ -230,7 +226,7 @@ if __name__ == "__main__":
     axs1[1].plot(rigid_data['ws_ms'], rigid_data['pitch_deg'], label='rigid redesign')
     axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['pitch_deg'], label='DTU 10 MW')
     #axs1[1].plot(flex_data['ws_ms'], flex_data['pitch_deg'], label='flex redesign')
-    axs1[1].plot(flex_data_bis['ws_ms'], flex_data_bis['pitch_deg'], label='flex redesign')
+    axs1[1].plot(flex_data['ws_ms'], flex_data['pitch_deg'], label='flex redesign')
     axs1[1].set_xlabel("wind speed [m/s]")
     axs1[1].set_ylabel("pitch [deg]")
     axs1[1].legend()
@@ -248,7 +244,7 @@ if __name__ == "__main__":
     axs1[0].plot(rigid_data['ws_ms'], rigid_data['power_kw']/1000, label='rigid redesign')
     axs1[0].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['power_kw']/1000, label='DTU 10 MW')
     #axs1[0].plot(flex_data['ws_ms'], flex_data['power_kw']/1000, label='flex redesign')
-    axs1[0].plot(flex_data_bis['ws_ms'], flex_data_bis['power_kw']/1000, label='flex redesign')
+    axs1[0].plot(flex_data['ws_ms'], flex_data['power_kw']/1000, label='flex redesign')
     axs1[0].set_ylabel("Power [MW]")
     axs1[0].set_xlabel("Wind speed [m/s]")
     axs1[0].legend()
@@ -259,7 +255,7 @@ if __name__ == "__main__":
     axs1[1].plot(rigid_data['ws_ms'], rigid_data['power_kw']/(rigid_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='rigid redesign')
     axs1[1].plot(rigid_DTU_10_data['ws_ms'], rigid_DTU_10_data['power_kw']/(rigid_DTU_10_data['ws_ms']**3*1/2*np.pi*R_X**2*1.225), label='DTU 10 MW')
     #axs1[1].plot(flex_data['ws_ms'], flex_data['power_kw']/(flex_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
-    axs1[1].plot(flex_data_bis['ws_ms'], flex_data_bis['power_kw']/(flex_data_bis['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
+    axs1[1].plot(flex_data['ws_ms'], flex_data['power_kw']/(flex_data['ws_ms']**3*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
     axs1[1].set_ylabel("CP")
     axs1[1].set_xlabel("Wind speed [m/s]")
     axs1[1].legend()
@@ -278,7 +274,7 @@ if __name__ == "__main__":
     #axs1[0].plot(rigid_data['ws_ms'], rigid_data['power_kw']/1000, label='rigid redesign')
     axs1[0].plot(flex_DTU_10_data['ws_ms'], flex_DTU_10_data['power_kw']/1000, label='flex DTU 10 MW')
     #axs1[0].plot(flex_data['ws_ms'], flex_data['power_kw']/1000, label='flex redesign')
-    axs1[0].plot(flex_data_bis['ws_ms'], flex_data_bis['power_kw']/1000, label='flex redesign')
+    axs1[0].plot(flex_data['ws_ms'], flex_data['power_kw']/1000, label='flex redesign')
     axs1[0].set_ylabel("Power [MW]")
     axs1[0].set_xlabel("Wind speed [m/s]")
     axs1[0].legend()
@@ -289,7 +285,7 @@ if __name__ == "__main__":
     #axs1[1].plot(rigid_data['ws_ms'], rigid_data['thrust_kn']/1000, label='rigid redesign')
     axs1[1].plot(flex_DTU_10_data['ws_ms'], flex_DTU_10_data['thrust_kn']/1000, label='flex DTU 10 MW')
     #axs1[0].plot(flex_data['ws_ms'], flex_data['thrust_kn']/1000, label='flex redesign')
-    axs1[1].plot(flex_data_bis['ws_ms'], flex_data_bis['thrust_kn']/1000, label='flex redesign')
+    axs1[1].plot(flex_data['ws_ms'], flex_data['thrust_kn']/1000, label='flex redesign')
     axs1[1].set_xlabel("wind speed [m/s]")
     axs1[1].set_ylabel("thrust [MN]")
     axs1[1].legend()
@@ -307,7 +303,7 @@ if __name__ == "__main__":
     #axs1[0].plot(rigid_data['ws_ms'], rigid_data['thrust_kn']/1000, label='rigid redesign')
     axs1[0].plot(flex_DTU_10_data['ws_ms'], flex_DTU_10_data['thrust_kn']/1000, label='flex DTU 10 MW')
     #axs1[0].plot(flex_data['ws_ms'], flex_data['thrust_kn']/1000, label='flex redesign')
-    axs1[0].plot(flex_data_bis['ws_ms'], flex_data_bis['thrust_kn']/1000, label='flex redesign')
+    axs1[0].plot(flex_data['ws_ms'], flex_data['thrust_kn']/1000, label='flex redesign')
     axs1[0].set_xlabel("wind speed [m/s]")
     axs1[0].set_ylabel("thrust [MN]")
     axs1[0].legend()
@@ -318,7 +314,7 @@ if __name__ == "__main__":
     #axs1[1].plot(rigid_data['ws_ms'], rigid_data['thrust_kn']/(rigid_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='rigid redesign')
     axs1[1].plot(flex_DTU_10_data['ws_ms'], flex_DTU_10_data['thrust_kn']/(flex_DTU_10_data['ws_ms']**2*1/2*np.pi*R_X**2*1.225), label='flex DTU 10 MW')
     #axs1[1].plot(flex_data['ws_ms'], flex_data['thrust_kn']/(flex_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
-    axs1[1].plot(flex_data_bis['ws_ms'], flex_data_bis['thrust_kn']/(flex_data_bis['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
+    axs1[1].plot(flex_data['ws_ms'], flex_data['thrust_kn']/(flex_data['ws_ms']**2*1/2*np.pi*R_Y**2*1.225), label='flex redesign')
     axs1[1].set_xlabel("wind speed [m/s]")
     axs1[1].set_ylabel("CT")
     axs1[1].legend()
@@ -332,9 +328,9 @@ if __name__ == "__main__":
     # power improvement
     imp = (rigid_data['power_kw'] - rigid_DTU_10_data['power_kw']) / rigid_DTU_10_data['power_kw']*100
     imp_1 = (flex_data['power_kw'] - rigid_DTU_10_data['power_kw']) / rigid_DTU_10_data['power_kw']*100
-    imp_1_bis = (flex_data_bis['power_kw'] - rigid_DTU_10_data['power_kw']) / rigid_DTU_10_data['power_kw']*100
+    imp_1_bis = (flex_data['power_kw'] - rigid_DTU_10_data['power_kw']) / rigid_DTU_10_data['power_kw']*100
     imp_2 = (flex_data['power_kw'] - rigid_data['power_kw']) / rigid_data['power_kw']*100
-    imp_2_bis = (flex_data_bis['power_kw'] - rigid_data['power_kw']) / rigid_data['power_kw']*100
+    imp_2_bis = (flex_data['power_kw'] - rigid_data['power_kw']) / rigid_data['power_kw']*100
     print(imp)  
 
     plt.figure()
