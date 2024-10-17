@@ -313,7 +313,7 @@
     begin operational_data;
       windspeed	4 25 22;	cut-in [m/s], cut-out [m/s], points [-] -- used if operational_data_file_wind is 0
       genspeed	6 9.6;	min, max generator speed [rpm]
-      gearratio	50;	gear ratio [-]
+      gearratio	1.0;	gear ratio [-]
       minpitch	0;	min. pitch angle [deg]
       opt_lambda	7.5;	optimal TSR [-]
       maxpow	10638.3;	rated aerodynamic power [kW]

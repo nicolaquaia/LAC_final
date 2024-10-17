@@ -36,12 +36,34 @@ if __name__ == '__main__':
                 compute_optimal_pitch_angle=True,
                 save_power=False,
                 genspeed= (6, 9.6),
-                genratio = 1.0,
+                gearratio = 1.0,
                 minpitch = 0,
                 opt_lambda=7.5,
                 maxpow = 10641.618
                 )
+    
+    # make flex hawc2s file from lecture 6, step 2 and 3
+    htc = MyHTC(ORIG_PATH)
+    htc.make_hawc2s_ctrltune(SAVE_HAWC2S_DIR,
+                rigid=False,
+                append='_hawc2s_25wsp_ctrltune',
+                opt_path='./res_hawc2s/dtu_10mw_hawc2s_25wsp.opt',
+                compute_steady_states=True,
+                compute_controller_input = True,
+                save_power = True,
+                genspeed= (6, 9.6),
+                gearratio = 1.0,
+                minpitch = 0,
+                opt_lambda=7.5,
+                maxpow = 10641.618,
+                partial_load = (0.05, 0.7),
+                full_load = (0.05, 0.7),
+                gain_scheduling = 2,
+                constant_power = 1
+                )
   
+
+    htc = MyHTC(ORIG_PATH)
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=False,
                     append='_hawc2s_camp',
@@ -53,7 +75,7 @@ if __name__ == '__main__':
                     minpitch = 0,
                     opt_lambda=7.5,
                     genspeed= (6, 9.6),
-                    genratio = 1.0,
+                    gearratio = 1.0,
                     maxpow = 10641.618,
                     )    
     
@@ -74,8 +96,7 @@ if __name__ == '__main__':
                     partial_load = (0.05, 0.7),
                     full_load = (0.06, 0.7),
                     gain_scheduling = 2,
-                    constant_power = 1,
-                    regions = (1,10,12,31)
+                    constant_power = 1
                     )
     
 
@@ -95,6 +116,5 @@ if __name__ == '__main__':
                         partial_load = (0.05, 0.7),
                         full_load = (data_fqc_damp[0][k], data_fqc_damp[1][k]),
                         gain_scheduling = 2,
-                        constant_power = data_fqc_damp[2][k],
-                        regions = (1,10,12,31)
+                        constant_power = data_fqc_damp[2][k]
                         )

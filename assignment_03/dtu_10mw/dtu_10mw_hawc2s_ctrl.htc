@@ -323,6 +323,15 @@
       set_torque_limit	1;	no torque limits if set to 1
     end operational_data;
     ; 
+; Need this block to call compute_controller_input
+    begin controller_tuning;
+      partial_load	0.05 0.7;	fn [hz], zeta [-]
+      full_load	0.06 0.7;	fn [hz], zeta [-]
+      gain_scheduling	2;	1 linear, 2 quadratic
+      constant_power	1;	0 constant torque, 1 constant power at full load
+      regions	5 10 12 31;	Index of opt point (starting from 1) where new ctrl region starts
+    end controller_tuning;
+    ; 
 ; HAWC2S commands (uncomment as needed)
     output_folder	res_hawc2s;	define the folder where generated files should be saved
     ;compute_optimal_pitch_angle	use_operational_data;	re-calculate and save opt file (pitch/rotor speed curve)
@@ -332,15 +341,6 @@
     ;compute_stability_analysis	windturbine 12;	compute/save aeroelastic campbell diagram (.cmb), XX modes
     ;save_modal_amplitude	;	save modal amplitudes and phrases to .amb file
     compute_controller_input	;	calculate/save controller parameters (reqs. steady_states)
-    ; 
-; Need this block to call compute_controller_input
-    begin controller_tuning;
-      partial_load	0.05 0.7;	fn [hz], zeta [-]
-      full_load	0.06 0.7;	fn [hz], zeta [-]
-      gain_scheduling	2;	1 linear, 2 quadratic
-      constant_power	1;	0 constant torque, 1 constant power at full load
-      regions	1 10 12 31;	Index of opt point (starting from 1) where new ctrl region starts
-    end controller_tuning;
   end hawcstab2;
 ;
 exit;
