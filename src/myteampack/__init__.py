@@ -178,3 +178,56 @@ class MyHTC(HTCFile):
         # update filename and save the file
         self._update_name_and_save(save_dir, append)
         print(f'File "{append}" saved.')
+
+
+    def make_step(self, save_dir, append, KpTrq, KiTrq, KpPit, KiPit, K1, K2, K_opt, 
+                            time_stop = 0, wsp = 4, P_rated = 10000, min_rot_speed = 0.628, shear_format = [3,0.2],
+                            turb_format = 0, tower_shadow_method = 3,
+                            rated_rot_speed = 1.005, max_torque = 15600000, theta_min = 100, tint = 0,
+                            constant_power = 1, **kwargs ):
+        """Make a HAWC2S file with specific settings.
+
+        Args:
+            save_dir (str/pathlib.Path): Path to folder where the htc file
+                should be saved.
+            rigid (boolean): Whether HAWC2S analysis should be a rigid or flexible
+                structure.
+            append (str): Text to append to the name of the master file.
+            opt_path (str): Relative path from the saved htc file to the opt_file.
+            genspeed (tuple, optional): 2-element tuple of minimum and maximum generator
+                speed. Defaults to (0, 480).
+        """
+        del self.hawcstab2
+
+        self.dll.type2_dll__1.init.constant__1 = [1,P_rated]
+        self.dll.type2_dll__1.init.constant__2 = [2,min_rot_speed]
+        self.dll.type2_dll__1.init.constant__3 = [3,rated_rot_speed]
+        self.dll.type2_dll__1.init.constant__4 = [4,max_torque]
+        self.dll.type2_dll__1.init.constant__5 = [5,theta_min]
+        self.dll.type2_dll__1.init.constant__11 = [11,K_opt]
+        self.dll.type2_dll__1.init.constant__12 = [12,KpTrq]
+        self.dll.type2_dll__1.init.constant__13 = [13,KiTrq]
+        self.dll.type2_dll__1.init.constant__15 = [15,constant_power]
+        self.dll.type2_dll__1.init.constant__16 = [16,KpPit]
+        self.dll.type2_dll__1.init.constant__17 = [17,KiPit]
+        self.dll.type2_dll__1.init.constant__21 = [21,K1]
+        self.dll.type2_dll__1.init.constant__22 = [22,K2]
+        self.simulation.time_stop = time_stop
+        self.wind.wsp = wsp
+        self.wind.tint = tint
+        self.wind.shear_format = shear_format
+        self.wind.turb_format = turb_format
+        self.wind.tower_shadow_method = tower_shadow_method
+        
+        wind_ramp_section = self.wind
+        wind_ramp_time = 100
+        for k in range(1,21):
+            wind_ramp_abs_values = [wind_ramp_time+40, wind_ramp_time+40+1, 0, 1]
+            wind_ramp_section.add_line(name='wind_ramp_abs', values=wind_ramp_abs_values, comments=f'wsp after the step: {k+3}')
+            wind_ramp_time += 41
+
+        # add hawc2s commands
+        #self._add_hawc2s_commands(rigid=rigid, **kwargs)
+        # update filename and save the file
+        self._update_name_and_save(save_dir, append)
+        print(f'File "{append}" saved.')
