@@ -96,6 +96,7 @@ if __name__ == '__main__':
                     shear_format = [3,0],
                     tint = 0,
                     turb_format = 0,
-                    tower_shadow_method = 0
+                    tower_shadow_method = 0,
+                    time = [0,1001]
 
         )

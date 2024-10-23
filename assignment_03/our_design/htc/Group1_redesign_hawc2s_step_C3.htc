@@ -609,7 +609,7 @@
     filename	./res/Group1_redesign_hawc2s_step_C3;	name of output file (excluding extension)
     data_format	gtsdf;	file format
     buffer	9999;	leave a lot in memory before writing to file
-    time	0 100;	time to record data
+    time	0 1001;	time to record data
 ;
     general time;	time vector
     constraint bearing1	shaft_rot 2;	angle and angle velocity

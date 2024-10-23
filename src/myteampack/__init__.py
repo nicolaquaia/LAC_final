@@ -184,7 +184,7 @@ class MyHTC(HTCFile):
                             time_stop = 0, wsp = 4, P_rated = 10000, min_rot_speed = 0.628, shear_format = [3,0.2],
                             turb_format = 0, tower_shadow_method = 3,
                             rated_rot_speed = 1.005, max_torque = 15600000, theta_min = 100, tint = 0,
-                            constant_power = 1, **kwargs ):
+                            constant_power = 1, time = [0,100], **kwargs ):
         """Make a HAWC2S file with specific settings.
 
         Args:
@@ -218,6 +218,7 @@ class MyHTC(HTCFile):
         self.wind.shear_format = shear_format
         self.wind.turb_format = turb_format
         self.wind.tower_shadow_method = tower_shadow_method
+        self.output.time = time
         
         wind_ramp_section = self.wind
         wind_ramp_time = 100
