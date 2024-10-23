@@ -4,3 +4,4 @@ Group members: <br>
 &nbsp;&nbsp;&nbsp;Mathéo Chala&nbsp;&nbsp;s233011  <br>
 &nbsp;&nbsp;&nbsp;Farras Muhammad Fikry&nbsp;&nbsp;s240121  <br>
 &nbsp;&nbsp;&nbsp;Bogusz Adam Glaza&nbsp;&nbsp;s233186<br>
+&nbsp;&nbsp;&nbsp;Dynel Lewis&nbsp;&nbsp;s232881<br>
