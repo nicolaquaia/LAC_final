@@ -3,10 +3,12 @@
 Requires myteampack (which requires lacbox).
 """
 from myteampack import MyHTC
+from lacbox.io import load_ctrl_txt
 
 if __name__ == '__main__':
     ORIG_PATH = './_master/Group1_redesign.htc'
     SAVE_HAWC2S_DIR = '.'
+    SAVE_HAWC2S_STEP = 'htc/'
 
     # make flex hawc2s file from lecture 6, step 1
     htc = MyHTC(ORIG_PATH)
@@ -65,4 +67,35 @@ if __name__ == '__main__':
                         full_load = (data_fqc_damp[0][k], data_fqc_damp[1][k]),
                         gain_scheduling = 2,
                         constant_power = data_fqc_damp[2][k]
+        )
+
+        control_output = load_ctrl_txt(f'res_hawc2s/Group1_redesign_hawc2s_ctrl_C{k+1}_ctrl_tuning.txt')
+        htc = MyHTC(ORIG_PATH)
+        htc.make_step(SAVE_HAWC2S_STEP,
+                    append=f'_hawc2s_step_C{k+1}',
+                    compute_steady_states=True,
+                    compute_controller_input = True,
+                    save_power = True,
+                    genspeed= (0, 8.337868262998404),
+                    gearratio = 1.0,
+                    P_rated = 10638.3,
+                    min_rot_speed = 0,
+                    rated_rot_speed = 0.87336,
+                    max_torque = 18200000,
+                    theta_min = 0,
+                    constant_power = 1,
+                    KpTrq = control_output['KpTrq_Nm/(rad/s)'],
+                    KiTrq = control_output['KiTrq_Nm/rad'],
+                    KpPit = control_output['KpPit_rad/(rad/s)'],
+                    KiPit = control_output['KiPit_rad/rad'],
+                    K1 = control_output['K1_deg'],
+                    K2 = control_output['K2_deg^2'],
+                    K_opt = control_output['K_Nm/(rad/s)^2'],
+                    time_stop = 1001,
+                    wsp = 4,
+                    shear_format = [3,0],
+                    tint = 0,
+                    turb_format = 0,
+                    tower_shadow_method = 0
+
         )
