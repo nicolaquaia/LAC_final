@@ -222,7 +222,7 @@ class MyHTC(HTCFile):
         
         wind_ramp_section = self.wind
         wind_ramp_time = 100
-        for k in range(1,21):
+        for k in range(1,22):
             wind_ramp_abs_values = [wind_ramp_time+40, wind_ramp_time+40+1, 0, 1]
             wind_ramp_section.add_line(name='wind_ramp_abs', values=wind_ramp_abs_values, comments=f'wsp after the step: {k+3}')
             wind_ramp_time += 41
