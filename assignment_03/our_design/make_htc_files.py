@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
     # assignment 3 part 2
     htc = MyHTC(ORIG_PATH)
-    data_fqc_damp = [[0.05,0.01,0.10,0.05,0.01,0.10],[0.7,0.7,0.7,0.7,0.7,0.7],[1,1,1,0,0,0]]
+    data_fqc_damp = [[0.05,0.01,0.10,0.05,0.01,0.10,0.06,0.04,0.05,0.05],[0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.65],[1,1,1,0,0,0,1,1,1,1]]
     for k in range(len(data_fqc_damp[0])):
         htc = MyHTC(ORIG_PATH)
         htc.make_hawc2s_ctrltune(SAVE_HAWC2S_DIR,

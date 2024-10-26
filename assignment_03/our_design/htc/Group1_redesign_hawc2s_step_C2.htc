@@ -327,6 +327,7 @@
     wind_ramp_abs	837 838 0 1;	wsp after the step: 21
     wind_ramp_abs	878 879 0 1;	wsp after the step: 22
     wind_ramp_abs	919 920 0 1;	wsp after the step: 23
+    wind_ramp_abs	960 961 0 1;	wsp after the step: 24
   end wind;
 ;
   begin aerodrag;	aerodynamic drag
