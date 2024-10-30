@@ -1,0 +1,249 @@
+Loaded dependency [OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6]: make/4.4.1
+Loaded dependency [mpi/4.1.6-gcc-12.3.0-binutils-2.40]: gcc/12.3.0-binutils-2.40
+Loaded dependency [OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6]: mpi/4.1.6-gcc-12.3.0-binutils-2.40
+Loaded dependency [OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6]: cmake/3.28.3
+Loaded dependency [OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6]: ninja/1.11.1
+Loaded module: OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6
+using OpenFoam optimized for cpuarch: generic
+
+Loading OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6
+  Loading requirement: make/4.4.1 gcc/12.3.0-binutils-2.40
+    mpi/4.1.6-gcc-12.3.0-binutils-2.40 cmake/3.28.3 ninja/1.11.1
+Loaded module: hawc2/13.0.8
+Could not verify license using license server.
+Status-code: 111 Local config file does not exist.
+Verifying using HAWCLicense...
+DLL loaded with success HAWC2License.so
+Using HAWC2License.so, version: 3.17-12-ga4a2d07-dirty
+License verified - OK
+License verified using local dll
+ Opening main command file: htc_steady/tilt/Group1_redesign_steady_tilt_21.0.htc
+ Current directory is /zhome/7e/0/202573/hawc2sims
+ Continue on no convergence = true
+ Creating file folder log/
+Creating file folder tilt
+Folder creation: "tilt" finished with with status:  1
+Created folder: './log/tilt/group1_redesign_steady_tilt_21.0.log'
+ Logfile: ./log/tilt/group1_redesign_steady_tilt_21.0.log
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5F.c line 660 in H5Fcreate(): unable to synchronously create file
+    major: File accessibility
+    minor: Unable to create file
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5F.c line 614 in H5F__create_api_common(): unable to create file
+    major: File accessibility
+    minor: Unable to open file
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLcallback.c line 3605 in H5VL_file_create(): file create failed
+    major: Virtual Object Layer
+    minor: Unable to create file
+  #003: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLcallback.c line 3571 in H5VL__file_create(): file create failed
+    major: Virtual Object Layer
+    minor: Unable to create file
+  #004: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLnative_file.c line 94 in H5VL__native_file_create(): unable to create file
+    major: File accessibility
+    minor: Unable to open file
+  #005: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5Fint.c line 1911 in H5F_open(): unable to lock the file
+    major: File accessibility
+    minor: Unable to lock file
+  #006: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5FD.c line 2412 in H5FD_lock(): driver lock request failed
+    major: Virtual File Layer
+    minor: Unable to lock file
+  #007: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5FDsec2.c line 941 in H5FD__sec2_lock(): unable to lock file, errno = 11, error message = 'Resource temporarily unavailable'
+    major: Virtual File Layer
+    minor: Unable to lock file
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 235 in H5Acreate2(): unable to synchronously create attribute
+    major: Attribute
+    minor: Unable to create file
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 176 in H5A__create_api_common(): can't set object access arguments
+    major: Attribute
+    minor: Can't set value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2603 in H5VL_setup_acc_args(): invalid location identifier
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+  #003: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 1742 in H5VL_vol_object(): invalid identifier type to function
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 935 in H5Awrite(): can't synchronously write data
+    major: Attribute
+    minor: Write failed
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 899 in H5A__write_api_common(): can't get VOL object for attribute
+    major: Attribute
+    minor: Can't get value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2528 in H5VL_setup_args(): not the correct type of ID
+    major: Virtual Object Layer
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 2223 in H5Aclose(): not an attribute ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 2510 in H5Aexists_by_name(): can't synchronously determine if attribute exists by name
+    major: Attribute
+    minor: Can't get value
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 2478 in H5A__exists_by_name_api_common(): can't set object access arguments
+    major: Attribute
+    minor: Can't set value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2678 in H5VL_setup_name_args(): invalid location identifier
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+  #003: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 1742 in H5VL_vol_object(): invalid identifier type to function
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 235 in H5Acreate2(): unable to synchronously create attribute
+    major: Attribute
+    minor: Unable to create file
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 176 in H5A__create_api_common(): can't set object access arguments
+    major: Attribute
+    minor: Can't set value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2603 in H5VL_setup_acc_args(): invalid location identifier
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+  #003: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 1742 in H5VL_vol_object(): invalid identifier type to function
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 935 in H5Awrite(): can't synchronously write data
+    major: Attribute
+    minor: Write failed
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 899 in H5A__write_api_common(): can't get VOL object for attribute
+    major: Attribute
+    minor: Can't get value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2528 in H5VL_setup_args(): not the correct type of ID
+    major: Virtual Object Layer
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 2223 in H5Aclose(): not an attribute ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 235 in H5Acreate2(): unable to synchronously create attribute
+    major: Attribute
+    minor: Unable to create file
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 176 in H5A__create_api_common(): can't set object access arguments
+    major: Attribute
+    minor: Can't set value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2603 in H5VL_setup_acc_args(): invalid location identifier
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+  #003: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 1742 in H5VL_vol_object(): invalid identifier type to function
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 935 in H5Awrite(): can't synchronously write data
+    major: Attribute
+    minor: Write failed
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 899 in H5A__write_api_common(): can't get VOL object for attribute
+    major: Attribute
+    minor: Can't get value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2528 in H5VL_setup_args(): not the correct type of ID
+    major: Virtual Object Layer
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 2223 in H5Aclose(): not an attribute ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 235 in H5Acreate2(): unable to synchronously create attribute
+    major: Attribute
+    minor: Unable to create file
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 176 in H5A__create_api_common(): can't set object access arguments
+    major: Attribute
+    minor: Can't set value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2603 in H5VL_setup_acc_args(): invalid location identifier
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+  #003: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 1742 in H5VL_vol_object(): invalid identifier type to function
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 935 in H5Awrite(): can't synchronously write data
+    major: Attribute
+    minor: Write failed
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 899 in H5A__write_api_common(): can't get VOL object for attribute
+    major: Attribute
+    minor: Can't get value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2528 in H5VL_setup_args(): not the correct type of ID
+    major: Virtual Object Layer
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5A.c line 2223 in H5Aclose(): not an attribute ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 187 in H5Dcreate2(): unable to synchronously create dataset
+    major: Dataset
+    minor: Unable to create file
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 111 in H5D__create_api_common(): can't set object access arguments
+    major: Dataset
+    minor: Can't set value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2603 in H5VL_setup_acc_args(): invalid location identifier
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+  #003: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 1742 in H5VL_vol_object(): invalid identifier type to function
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 1371 in H5Dwrite(): can't synchronously write data
+    major: Dataset
+    minor: Write failed
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 1286 in H5D__write_api_common(): dset_id is not a dataset ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 475 in H5Dclose(): not a dataset ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 187 in H5Dcreate2(): unable to synchronously create dataset
+    major: Dataset
+    minor: Unable to create file
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 111 in H5D__create_api_common(): can't set object access arguments
+    major: Dataset
+    minor: Can't set value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2603 in H5VL_setup_acc_args(): invalid location identifier
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+  #003: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 1742 in H5VL_vol_object(): invalid identifier type to function
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 1371 in H5Dwrite(): can't synchronously write data
+    major: Dataset
+    minor: Write failed
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 1286 in H5D__write_api_common(): dset_id is not a dataset ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 475 in H5Dclose(): not a dataset ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 187 in H5Dcreate2(): unable to synchronously create dataset
+    major: Dataset
+    minor: Unable to create file
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 111 in H5D__create_api_common(): can't set object access arguments
+    major: Dataset
+    minor: Can't set value
+  #002: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 2603 in H5VL_setup_acc_args(): invalid location identifier
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+  #003: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5VLint.c line 1742 in H5VL_vol_object(): invalid identifier type to function
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 1371 in H5Dwrite(): can't synchronously write data
+    major: Dataset
+    minor: Write failed
+  #001: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 1286 in H5D__write_api_common(): dset_id is not a dataset ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5D.c line 475 in H5Dclose(): not a dataset ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type
+HDF5-DIAG: Error detected in HDF5 (1.14.2) thread 0:
+  #000: /mmpe/CMake-hdf5-1.14.2/hdf5-1.14.2/src/H5F.c line 1054 in H5Fclose(): not a file ID
+    major: Invalid arguments to routine
+    minor: Inappropriate type

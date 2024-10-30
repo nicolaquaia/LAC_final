@@ -1,0 +1,141 @@
+Wed Oct 30 16:29:06 CET 2024
+whoami
+s232439
+hostname -I
+10.66.31.22 10.66.85.22 fd23:711a:2e3c:49e5:9a03:9b03:74:c2cc 
+Postprocessing HAWC2...
+
+40 HAWC2 HDF5 time series to process.
+
+Processing 1/40...
+Processing 2/40...
+Processing 3/40...
+Processing 4/40...
+Processing 5/40...
+Processing 6/40...
+Processing 7/40...
+Processing 8/40...
+Processing 9/40...
+Processing 10/40...
+Processing 11/40...
+Processing 12/40...
+Processing 13/40...
+Processing 14/40...
+Processing 15/40...
+Processing 16/40...
+Processing 17/40...
+Processing 18/40...
+Processing 19/40...
+Processing 20/40...
+Processing 21/40...
+Processing 22/40...
+Processing 23/40...
+Processing 24/40...
+Processing 25/40...
+Processing 26/40...
+Processing 27/40...
+Processing 28/40...
+Processing 29/40...
+Processing 30/40...
+Processing 31/40...
+Processing 32/40...
+Processing 33/40...
+Processing 34/40...
+Processing 35/40...
+Processing 36/40...
+Processing 37/40...
+Processing 38/40...
+Processing 39/40...
+Processing 40/40...
+
+Results saved to file "dtu_10mw_steady_stats.csv".
+
+done
+runtime: 138 seconds
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 22981485: <postprocess_hawc2> in cluster <dcc> Done
+
+Job <postprocess_hawc2> was submitted from host <gbarlogin1> by user <s232439> in cluster <dcc> at Wed Oct 30 16:29:03 2024
+Job was executed on host(s) <n-62-31-22>, in queue <hpc>, as user <s232439> in cluster <dcc> at Wed Oct 30 16:29:05 2024
+</zhome/7e/0/202573> was used as the home directory.
+</zhome/7e/0/202573/hawc2sims> was used as the working directory.
+Started at Wed Oct 30 16:29:05 2024
+Terminated at Wed Oct 30 16:31:24 2024
+Results reported at Wed Oct 30 16:31:24 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/sh
+#
+#BSUB -J postprocess_hawc2
+#BSUB -q hpc 
+#BSUB -n 1
+#BSUB -W 03:00
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=2GB]"
+#BSUB -o lsf_log/postprocess_hawc2_output_%J.out
+#BSUB -e lsf_log/postprocess_hawc2_error_%J.err 
+
+# CHECK BEFORE SUBMITTING THIS SCRIPT TO THE CLUSTER:
+#   1. The filenames, directories, and settings in postprocess_hawc2.py are correct.
+#   2. The results folders, the postprocess_hawc.py file, and this .sh are all in the same directory.
+#   3. You have installed the lacbox as instructed during lecture.
+#
+# This script should save the results files as specified in postprocess_hawc2.py.
+# IF ANYTHING GOES WRONG:
+#   E.g., the job finishes, you refresh the folder but there is no stats file.
+#   Read the lsf log files, especially the error file (paths above), to get more info.
+
+# Print some basic information to LSF log file
+date
+START_TIME=`date +%s`
+echo whoami
+whoami
+echo hostname -I
+hostname -I
+
+echo "Postprocessing HAWC2..."
+
+# make the lsf_log folder if it doesn't exist
+mkdir -p lsf_log/
+
+# Load the Python module
+module load python3/3.9.19
+
+# Call Python on the post-processing script
+python3 postprocess_hawc2.py
+
+
+# Say goodbye
+END_TIME=`date +%s`
+echo done
+echo "runtime: $(($END_TIME-$START_TIME)) seconds"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   136.58 sec.
+    Max Memory :                                 175 MB
+    Average Memory :                             158.50 MB
+    Total Requested Memory :                     2048.00 MB
+    Delta Memory :                               1873.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   201 sec.
+    Turnaround time :                            141 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <lsf_log/postprocess_hawc2_error_22981485.err> for stderr output of this job.
+

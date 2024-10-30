@@ -1,0 +1,44 @@
+Loaded dependency [OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6]: make/4.4.1
+Loaded dependency [mpi/4.1.6-gcc-12.3.0-binutils-2.40]: gcc/12.3.0-binutils-2.40
+Loaded dependency [OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6]: mpi/4.1.6-gcc-12.3.0-binutils-2.40
+Loaded dependency [OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6]: cmake/3.28.3
+Loaded dependency [OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6]: ninja/1.11.1
+Loaded module: OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6
+using OpenFoam optimized for cpuarch: generic
+
+Loading OpenFoam/v2312/gcc-12.3.0-binutils-2.40-openmpi-4.1.6
+  Loading requirement: make/4.4.1 gcc/12.3.0-binutils-2.40
+    mpi/4.1.6-gcc-12.3.0-binutils-2.40 cmake/3.28.3 ninja/1.11.1
+Loaded dependency [python3/3.9.19]: sqlite3/3.46.0
+Loaded dependency [python3/3.9.19]: gcc/12.4.0-binutils-2.42
+Loaded module: python3/3.9.19
+
+Loading python3/3.9.19
+  Loading requirement: sqlite3/3.46.0 gcc/12.4.0-binutils-2.42
+Traceback (most recent call last):
+  File "/zhome/7e/0/202573/hawc2sims/postprocess_hawc2.py", line 15, in <module>
+    stats_df = process_statistics(res_dir, save_path)
+  File "/zhome/7e/0/202573/dtulac/src/lacbox/postprocess.py", line 103, in process_statistics
+    stats_df.to_hdf(save_path, key='stats_df', mode='w')
+  File "/zhome/7e/0/202573/.local/lib/python3.9/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "/zhome/7e/0/202573/.local/lib/python3.9/site-packages/pandas/core/generic.py", line 2855, in to_hdf
+    pytables.to_hdf(
+  File "/zhome/7e/0/202573/.local/lib/python3.9/site-packages/pandas/io/pytables.py", line 308, in to_hdf
+    with HDFStore(
+  File "/zhome/7e/0/202573/.local/lib/python3.9/site-packages/pandas/io/pytables.py", line 566, in __init__
+    tables = import_optional_dependency("tables")
+  File "/zhome/7e/0/202573/.local/lib/python3.9/site-packages/pandas/compat/_optional.py", line 135, in import_optional_dependency
+    module = importlib.import_module(name)
+  File "/appl9/python/3.9.19/lib/python3.9/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 986, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 680, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 850, in exec_module
+  File "<frozen importlib._bootstrap>", line 228, in _call_with_frames_removed
+  File "/zhome/7e/0/202573/.local/lib/python3.9/site-packages/tables/__init__.py", line 44, in <module>
+    from .utilsextension import get_hdf5_version as _get_hdf5_version
+  File "tables/utilsextension.pyx", line 1, in init tables.utilsextension
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
