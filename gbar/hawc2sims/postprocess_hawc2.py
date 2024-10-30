@@ -9,7 +9,8 @@ from lacbox.postprocess import process_statistics
 # inputs
 res_dir = Path('./res_steady')  # directory with res files to process
 calc_del = False  # calculate DELs in the statistics? It takes longer.
-save_path = './dtu_10mw_steady_stats.csv'  # where should I save the stats file?
+#save_path = './dtu_10mw_steady_stats.csv'  # original
+save_path = './Group1_steady_state.csv'  # where should I save the stats file?
 
 # call the function
 stats_df = process_statistics(res_dir, save_path)
