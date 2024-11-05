@@ -1,0 +1,22 @@
+Loaded module: hawc2/13.0.8
+Could not verify license using license server.
+Status-code: 111 Local config file does not exist.
+Verifying using HAWCLicense...
+DLL loaded with success HAWC2License.so
+Using HAWC2License.so, version: 3.17-12-ga4a2d07-dirty
+License verified - OK
+License verified using local dll
+ Opening main command file: htc_turb/tcb/Group1_redesign_turb_tcb_14.0_34993.htc
+ Current directory is /zhome/2c/f/203069/hawc2sims
+ Continue on no convergence = true
+ Creating file folder log/
+Creating file folder tcb
+Folder creation: "tcb" finished with with status:  1
+Created folder: './log/tcb/group1_redesign_turb_tcb_14.0_34993.log'
+ Logfile: ./log/tcb/group1_redesign_turb_tcb_14.0_34993.log
+forrtl: severe (174): SIGSEGV, segmentation fault occurred
+Image              PC                Routine            Line        Source             
+HAWC2MB.exe        00000000018DDDBE  Unknown               Unknown  Unknown
+libc.so.6          00007F56DCC3E6F0  Unknown               Unknown  Unknown
+HAWC2MB.exe        00000000018DD99C  Unknown               Unknown  Unknown
+libc.so.6          00007F56DCC3E6F0  Unknown               Unknown  Unknown
