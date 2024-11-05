@@ -48,7 +48,7 @@ def make_single_turb(htc, wsp, turbclass, htc_dir='./htc_turb/', res_dir='./res_
     fname = Path(htc.filename).name.replace('.htc', append)
     # delete hawcstab2 block
     # TODO: add code
-    del htc.hawcstab2
+    del htc.hawcstab2    
 
     # correct initial rotor speed if opt file is given
     # TODO: add code
@@ -72,16 +72,17 @@ def make_single_turb(htc, wsp, turbclass, htc_dir='./htc_turb/', res_dir='./res_
 
     # set parameters in wind block
     # TODO: set turbulence intensity
-    htc.wind.tint = tint
+    htc.wind.tint = tint  
     # TODO: set turbulence
     htc.wind.turb_format = 1  #mann or flex ?
     # TODO: set tower shadow
-    htc.wind.tower_shadow_method = 3
+    htc.wind.tower_shadow_method = 3 
     # TODO: set mean wind speed
     htc.wind.wsp = wsp  # mean wind speed
     # TODO: set power-law shear profile
     htc.wind.shear_format = [3, 0.2]
-
+    
+    
 
 
     # set parameters in mann block
@@ -119,17 +120,21 @@ def main():
     htc_dir = './htc_turb/'  # top-level folder to save htc files (can be path to gbar!)
     res_dir = './res_turb/'  # where HAWC2 should save res files, relative to its working directory
     start_seed = 42  # initialize the random-number generator for reproducability
-    turbclass = 'A'  # turbulence class
+    turbclasses = ['A','B']  # turbulence class
+    num_seeds = 6  # Number of different seeds for each wind speed
     # delete the top-level directory if requested
-    _clean_directory(htc_dir, del_htc_dir)
-    # make the files
-    random.seed(start_seed)
-    subfolder = 'tc' + turbclass.lower()
-    for wsp in wsps:
-        sim_seed = random.randrange(int(2**16))
-        htc = MyHTC(master_htc)
-        make_single_turb(htc, wsp, turbclass, htc_dir=htc_dir, res_dir=res_dir,
-                        subfolder=subfolder, opt_path=opt_path, seed=sim_seed)
+    _clean_directory(htc_dir, del_htc_dir)    
+    for turbclass in turbclasses:
+        # make the files
+        random.seed(start_seed)
+        subfolder = 'tc' + turbclass.lower()
+        for wsp in wsps:
+            # Generate multiple seeds for each wind speed
+            for _ in range(num_seeds):
+                sim_seed = random.randrange(int(2**16))
+                htc = MyHTC(master_htc)
+                make_single_turb(htc, wsp, turbclass, htc_dir=htc_dir, res_dir=res_dir,
+                                subfolder=subfolder, opt_path=opt_path, seed=sim_seed)
 
 
 # the "script" part of this file
