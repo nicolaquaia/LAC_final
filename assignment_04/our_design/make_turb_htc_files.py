@@ -62,9 +62,9 @@ def make_single_turb(htc, wsp, turbclass, htc_dir='./htc_turb/', res_dir='./res_
 
     # calculate turbulence intensity for this turbulence class and wind speed
     # TODO: add code
-    if turbclass[-1] == 'A' :
+    if turbclass == 'A' :
         i_ref =  0.16
-    if turbclass[-1] == 'B' :
+    if turbclass == 'B' :
         i_ref =  0.14
     else :
         i_ref =  0.12
