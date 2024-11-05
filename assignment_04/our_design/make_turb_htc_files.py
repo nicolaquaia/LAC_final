@@ -48,7 +48,7 @@ def make_single_turb(htc, wsp, turbclass, htc_dir='./htc_turb/', res_dir='./res_
     fname = Path(htc.filename).name.replace('.htc', append)
     # delete hawcstab2 block
     # TODO: add code
-    del htc.hawcstab2    
+    del htc.hawcstab2
 
     # correct initial rotor speed if opt file is given
     # TODO: add code
@@ -72,17 +72,16 @@ def make_single_turb(htc, wsp, turbclass, htc_dir='./htc_turb/', res_dir='./res_
 
     # set parameters in wind block
     # TODO: set turbulence intensity
-    htc.wind.tint = tint  
+    htc.wind.tint = tint
     # TODO: set turbulence
     htc.wind.turb_format = 1  #mann or flex ?
     # TODO: set tower shadow
-    htc.wind.tower_shadow_method = 3 
+    htc.wind.tower_shadow_method = 3
     # TODO: set mean wind speed
     htc.wind.wsp = wsp  # mean wind speed
     # TODO: set power-law shear profile
     htc.wind.shear_format = [3, 0.2]
-    
-    
+
 
 
     # set parameters in mann block
@@ -112,8 +111,10 @@ def main():
     # TODO: and (b) generates multiple random seeds at each wind speed
     # constants for this script
     del_htc_dir = True  # delete htc directory if it already exists?
-    master_htc = './_master/dtu_10mw.htc'
-    opt_path = './data/dtu_10mw_flex_minrotspd.opt'
+    #master_htc = './_master/dtu_10mw.htc'
+    #opt_path = './data/dtu_10mw_flex_minrotspd.opt'
+    master_htc = './_master/Group1_redesign.htc'
+    opt_path = './data/Group1_redesign_flex.opt'
     wsps = range(5, 25)  # wind speed range
     htc_dir = './htc_turb/'  # top-level folder to save htc files (can be path to gbar!)
     res_dir = './res_turb/'  # where HAWC2 should save res files, relative to its working directory
