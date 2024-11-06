@@ -4,7 +4,7 @@ _pychache_/
 *$py.class
 
 # C extension
-*.so
+#*.so
 
 # Distribution / packaging
 .Python
