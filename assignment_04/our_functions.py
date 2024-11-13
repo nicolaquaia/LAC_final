@@ -1,8 +1,14 @@
+"""
+useful function for assignment 4 but can be expanded
+Created on Sat 9/11
+
+@author: Group 1
+"""
+
 
 import numpy as np
 from our_values import *
 from lacbox.io import load_stats
-from scipy.integrate import simpson
 
 def DEL_calculation(STATS_PATH, SUBFOLDER, chan_ids, CHAN_DESCS, wohler_4, wohler_10,
                     ws_prob,
@@ -42,10 +48,7 @@ def DEL_calculation(STATS_PATH, SUBFOLDER, chan_ids, CHAN_DESCS, wohler_4, wohle
             R_eq_array[idx] = (sum(HAWC2val[groups[idx]]**wohler_exp)/n_seed)**(1/wohler_exp) # takes an average load from the 6 cases
 
         # compute equivalent lifetime load
-        # R_eql = (trapezoid(ws_prob*R_eq_array**wohler_exp, ws_array) * n_t  / n_life )**(1/wohler_exp)      
-        R_eql = (simpson(ws_prob * R_eq_array**wohler_exp, ws_array) * n_t / n_life) ** (1 / wohler_exp)
-        # very close to given result
-        # R_eql = (trapezoid(ws_prob*R_eq_array**wohler_exp, ws_array) * n_t  / n_seed/ n_life )**(1/wohler_exp)     # theoretically correct but not close to result
+        R_eql = (sum(ws_prob * R_eq_array**wohler_exp) * n_t / n_life) ** (1 / wohler_exp)
 
         data_channel = {
             'wohler_exp': wohler_exp,
