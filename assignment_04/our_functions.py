@@ -5,7 +5,6 @@ Created on Sat 9/11
 @author: Group 1
 """
 
-
 import numpy as np
 from our_values import *
 from lacbox.io import load_stats
@@ -67,6 +66,43 @@ def DEL_calculation(STATS_PATH, SUBFOLDER, chan_ids, CHAN_DESCS, wohler_4, wohle
     data['general'] = data_general
 
     return data
+
+
+def AEP_calculation(STATS_PATH, SUBFOLDER,CHAN_DESCS):
+    df, _ = load_stats(STATS_PATH, subfolder=SUBFOLDER, statstype='turb')
+    chan_id = 'ElPow'
+    chan_df = df.filter_channel(chan_id, CHAN_DESCS)
+    h2_wind = chan_df['wsp']
+    HAWC2val = chan_df['mean']
+    h2_wind, HAWC2val = np.array(h2_wind), np.array(HAWC2val)
+    i_h2 = np.argsort(h2_wind)
+    groups = [i_h2[i:i + 6] for i in range(0, len(i_h2), 6)]
+    ws_array = np.zeros(20)
+    power_array = np.zeros(20)
+    for idx, group in enumerate(groups):
+        ws_array[idx] = h2_wind[groups[idx]][0]
+        power_array[idx] = np.mean(HAWC2val[groups[idx]])
+
+    bins = [(ws - 0.5, ws + 0.5) for ws in ws_array]
+
+    prob_array = np.zeros(len(ws_array))
+    for i, ws in enumerate(ws_array):
+        a = ((ws - 0.5)**2 * np.pi) / 225
+        b = ((ws + 0.5)**2 * np.pi) / 225
+        prob_array[i] = np.exp(-a) - np.exp(-b)
+
+    T = 365 * 24
+    AEP = sum(prob_array * power_array)*T
+
+    result = {
+        'ws' : ws_array,                 # wind speeds
+        'bins': bins,                   # Edges of wind-speed bins
+        'prob' : prob_array ,           # Bin probabilities
+        'power' : power_array/1e6,      # Power in each bin [MW]
+        'AEP' : AEP/1e9                 # annual energy production [GWh]
+    }
+
+    return result
 
 
 
