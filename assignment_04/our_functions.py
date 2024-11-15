@@ -36,8 +36,8 @@ def load_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, chan_ids):
             for idx, group in enumerate(groups): # index, group
                 ws_array[idx] = h2_wind[groups[idx]][0]
                 average_array[idx] = np.mean(HAWC2val[groups[idx]])
-                max_array[idx] = np.amax(HAWC2val[groups[idx]])
-                min_array[idx] = np.amin(HAWC2val[groups[idx]])
+                max_array[idx] = np.max(HAWC2val[groups[idx]])
+                min_array[idx] = np.min(HAWC2val[groups[idx]])
             
             data_value = {
                 'scatter_wind': h2_wind[i_h2],
@@ -55,11 +55,12 @@ def load_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, chan_ids):
     return data
 
 
-def DEL_calculation(STATS_PATH, SUBFOLDER, chan_ids, CHAN_DESCS, wohler_4, wohler_10,
+def DEL_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, wohler_4, wohler_10,
                     n_seed=6, n_t=20*365*24*60*60 , n_life=1e7, n_eq = 10*60):
     
     AEP_data = AEP_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS)
     ws_prob = AEP_data['prob']
+    chan_ids = wohler_4 + wohler_10
 
     data = {}
 
