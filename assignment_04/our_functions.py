@@ -2,19 +2,73 @@
 import numpy as np
 from our_values import *
 from lacbox.io import load_stats
-from scipy.integrate import simpson
+
+
+def load_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, chan_ids):
+
+    value_list = ['min', 'mean', 'max']
+    data = {}
+
+    df, wsps = load_stats(STATS_PATH, subfolder=SUBFOLDER, statstype='turb')
+
+    for iplot, chan_id in enumerate(chan_ids):
+
+        # isolate the channel data
+        chan_df = df.filter_channel(chan_id, CHAN_DESCS)
+
+        # extract hawc2 wind and channel to plot from the HAWC2 stats
+        h2_wind = chan_df['wsp']
+
+        data_channel = {}
+
+        for value in value_list:
+            HAWC2val = chan_df[value]
+
+            h2_wind, HAWC2val = np.array(h2_wind), np.array(HAWC2val) # wind speed, loads
+            i_h2 = np.argsort(h2_wind) # sorts indexies so the wind speed array is in ascending order
+
+            groups = [i_h2[i:i + 6] for i in range(0, len(i_h2), 6)]
+            ws_array = np.zeros(20)
+            average_array = np.zeros(20)
+            max_array = np.zeros(20)
+            min_array = np.zeros(20)
+
+            for idx, group in enumerate(groups): # index, group
+                ws_array[idx] = h2_wind[groups[idx]][0]
+                average_array[idx] = np.mean(HAWC2val[groups[idx]])
+                max_array[idx] = np.amax(HAWC2val[groups[idx]])
+                min_array[idx] = np.amin(HAWC2val[groups[idx]])
+            
+            data_value = {
+                'scatter_wind': h2_wind[i_h2],
+                'scatter_load': HAWC2val[i_h2],
+                'ws': ws_array,
+                'ave': average_array,
+                'max': max_array,
+                'min': min_array,
+            }
+
+            data_channel[value] = data_value
+        
+        data[chan_id] = data_channel
+
+    return data
+
 
 def DEL_calculation(STATS_PATH, SUBFOLDER, chan_ids, CHAN_DESCS, wohler_4, wohler_10,
-                    ws_prob,
                     n_seed=6, n_t=20*365*24*60*60 , n_life=1e7, n_eq = 10*60):
-    data = {}
     
+    AEP_data = AEP_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS)
+    ws_prob = AEP_data['prob']
+
+    data = {}
+
     # load the HAWC2 data from the stats file. Isolate the simulations with no tilt.
     df, _ = load_stats(STATS_PATH, subfolder=SUBFOLDER, statstype='turb')
 
     # loop over each channels
     for iplot, chan_id in enumerate(chan_ids):
-        
+
         # isolate the channel data
         chan_df = df.filter_channel(chan_id, CHAN_DESCS)
 
@@ -29,7 +83,7 @@ def DEL_calculation(STATS_PATH, SUBFOLDER, chan_ids, CHAN_DESCS, wohler_4, wohle
             wohler_exp = 10
         else:
             continue        # goes to the next element in the loop
-        
+
         h2_wind, HAWC2val = np.array(h2_wind), np.array(HAWC2val)
         i_h2 = np.argsort(h2_wind)
 
@@ -37,27 +91,28 @@ def DEL_calculation(STATS_PATH, SUBFOLDER, chan_ids, CHAN_DESCS, wohler_4, wohle
         groups = [i_h2[i:i + 6] for i in range(0, len(i_h2), 6)]
         ws_array = np.zeros(20)
         R_eq_array = np.zeros(20)
+        ci_array = np.zeros(20)
         for idx, group in enumerate(groups):
             ws_array[idx] = h2_wind[groups[idx]][0]
             R_eq_array[idx] = (sum(HAWC2val[groups[idx]]**wohler_exp)/n_seed)**(1/wohler_exp) # takes an average load from the 6 cases
 
-        # compute equivalent lifetime load
-        # R_eql = (trapezoid(ws_prob*R_eq_array**wohler_exp, ws_array) * n_t  / n_life )**(1/wohler_exp)      
+            ci_array[idx] = 1.96 * np.std(HAWC2val[groups[idx]], ddof=1) / np.sqrt(6)
+
+        # compute equivalent lifetime load     
         R_eql = (sum(ws_prob * R_eq_array**wohler_exp) * n_t / n_life) ** (1 / wohler_exp)
-        # very close to given result
-        # R_eql = (trapezoid(ws_prob*R_eq_array**wohler_exp, ws_array) * n_t  / n_seed/ n_life )**(1/wohler_exp)     # theoretically correct but not close to result
 
         data_channel = {
             'wohler_exp': wohler_exp,
-            'scatter_wind': h2_wind,
-            'scatter_load': HAWC2val,
+            'scatter_wind': h2_wind[i_h2],
+            'scatter_load': HAWC2val[i_h2],
             'ws': ws_array,
             'R_eq': R_eq_array,
+            'R_eq_err': ci_array,
             'R_eql': R_eql
         }
 
         data[chan_id] = data_channel
-    
+
     data_general = {
         'channels': wohler_4 + wohler_10
     }
@@ -65,22 +120,6 @@ def DEL_calculation(STATS_PATH, SUBFOLDER, chan_ids, CHAN_DESCS, wohler_4, wohle
 
     return data
 
-
-
-def filter(time, y, div):
-    n = len(time)
-    delta = int(div/2)
-
-    result = np.zeros(n)
-    for i in range(delta,n-delta):
-        result[i] = np.mean(y[i-delta:i+delta])
-    
-    for i in range(0,delta):
-        result[i] = np.mean(y[0:delta])
-    for i in range(n-delta, n):
-        result[i] = np.mean(y[n-delta:n])
-
-    return result
 
 def twr_clr_calculation(STATS_PATH, SUBFOLDER,CHAN_DESCS):
     df, _ = load_stats(STATS_PATH, subfolder=SUBFOLDER, statstype='turb')
@@ -99,7 +138,7 @@ def twr_clr_calculation(STATS_PATH, SUBFOLDER,CHAN_DESCS):
 
     result = {
         'ws' : ws_array,                 # wind speeds
-        'twr_clr': twr_clr_array,                   # Edges of wind-speed bins
+        'twr_clr': twr_clr_array,        # Edges of wind-speed bins
     }
 
     return result
@@ -137,5 +176,20 @@ def AEP_calculation(STATS_PATH, SUBFOLDER,CHAN_DESCS):
         'power' : power_array/1e6,      # Power in each bin [MW]
         'AEP' : AEP/1e9                 # annual energy production [GWh]
     }
+
+    return result
+
+def filter_ctrl_output(time, y, div):
+    n = len(time)
+    delta = int(div/2)
+
+    result = np.zeros(n)
+    for i in range(delta,n-delta):
+        result[i] = np.mean(y[i-delta:i+delta])
+
+    for i in range(0,delta):
+        result[i] = np.mean(y[0:delta])
+    for i in range(n-delta, n):
+        result[i] = np.mean(y[n-delta:n])
 
     return result
