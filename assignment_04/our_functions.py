@@ -5,13 +5,21 @@ from lacbox.io import load_stats
 
 
 def load_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, chan_ids):
+    '''
+    function that extract operational data and load from the csv file
+    in the output dictionary you can chose:
+      chan_id for the channels
+          min / mean / max for the different data set
+              minimum / average / maximum for the different arrays
+              scatter for all values in the data set
+    '''
 
     value_list = ['min', 'mean', 'max']
     data = {}
 
-    df, wsps = load_stats(STATS_PATH, subfolder=SUBFOLDER, statstype='turb')
+    df, _ = load_stats(STATS_PATH, subfolder=SUBFOLDER, statstype='turb')
 
-    for iplot, chan_id in enumerate(chan_ids):
+    for _, chan_id in enumerate(chan_ids):
 
         # isolate the channel data
         chan_df = df.filter_channel(chan_id, CHAN_DESCS)
@@ -58,6 +66,15 @@ def load_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, chan_ids):
 def DEL_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, wohler_4, wohler_10,
                     n_seed=6, n_t=20*365*24*60*60 , n_life=1e7, n_eq = 10*60):
     
+    '''
+    function that extract DEL from the csv file
+    in the output dictionary you can chose:
+      chan_id for the channels
+        scatter for all values in the data set
+        Equivalent load and relative confident interval
+        life equivalent load
+    '''
+
     AEP_data = AEP_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS)
     ws_prob = AEP_data['prob']
     chan_ids = wohler_4 + wohler_10
@@ -123,6 +140,11 @@ def DEL_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, wohler_4, wohler_10,
 
 
 def twr_clr_calculation(STATS_PATH, SUBFOLDER,CHAN_DESCS):
+    '''
+    function that extract tower clearance from the csv file
+    gives tower clearance per wind speed
+    '''
+        
     df, _ = load_stats(STATS_PATH, subfolder=SUBFOLDER, statstype='turb')
     chan_id = 'Twrclr'
     chan_df = df.filter_channel(chan_id, CHAN_DESCS)
@@ -145,6 +167,11 @@ def twr_clr_calculation(STATS_PATH, SUBFOLDER,CHAN_DESCS):
     return result
 
 def AEP_calculation(STATS_PATH, SUBFOLDER,CHAN_DESCS):
+    '''
+    function that extract probability and AEP from the csv file
+    gives probability per bin, power per bin, final AEP value
+    '''
+        
     df, _ = load_stats(STATS_PATH, subfolder=SUBFOLDER, statstype='turb')
     chan_id = 'ElPow'
     chan_df = df.filter_channel(chan_id, CHAN_DESCS)
