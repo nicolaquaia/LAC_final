@@ -77,6 +77,12 @@ def DEL_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, wohler_4, wohler_10,
 
     AEP_data = AEP_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS)
     ws_prob = AEP_data['prob']
+    if SUBFOLDER == 'tca':
+        ws_prob = [0.06442809, 0.0709227,  0.07472189, 0.07591763, 0.0747455,  0.07155162,
+                   0.06675382, 0.06080169, 0.05413969, 0.04717648, 0.04026251, 0.03367663,
+                   0.02762128, 0.02222493, 0.01755019, 0.01360521, 0.01035688, 0.00774379,
+                   0.00568809, 0.0041053 ]
+
     chan_ids = wohler_4 + wohler_10
 
     data = {}
@@ -139,7 +145,7 @@ def DEL_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, wohler_4, wohler_10,
     return data
 
 
-def twr_clr_calculation(STATS_PATH, SUBFOLDER,CHAN_DESCS):
+def twr_clr_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS):
     '''
     function that extract tower clearance from the csv file
     gives tower clearance per wind speed
@@ -166,7 +172,7 @@ def twr_clr_calculation(STATS_PATH, SUBFOLDER,CHAN_DESCS):
 
     return result
 
-def AEP_calculation(STATS_PATH, SUBFOLDER,CHAN_DESCS):
+def AEP_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS):
     '''
     function that extract probability and AEP from the csv file
     gives probability per bin, power per bin, final AEP value
