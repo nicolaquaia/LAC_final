@@ -18,8 +18,9 @@ if __name__ == '__main__':
                     save_power=True,
                     save_induction=True,
                     minpitch = 0,
-                    opt_lambda=7.700000000000002,
-                    genspeed= (50*6, 50*10.425110))
+                    #opt_lambda=7.700000000000002,
+                    #genspeed= (50*6, 50*10.425110)
+                    )
 
     htc = MyHTC(ORIG_PATH)
     # make rigid hawc2s file for multi-wsp opt file
@@ -31,9 +32,10 @@ if __name__ == '__main__':
                     save_power=True,
                     save_induction=True,
                     minpitch = 0,
-                    opt_lambda=7.700000000000002,
-                    genspeed= (50*6, 50*10.425110))
-                    
+                    #opt_lambda=7.700000000000002,
+                    #genspeed= (50*6, 50*10.425110)
+                    )
+'''                    
     htc = MyHTC(ORIG_PATH)
     # make rigid hawc2s file for compute rigid opt file
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
@@ -71,4 +73,4 @@ if __name__ == '__main__':
                     minpitch = 0,
                     opt_lambda=7.263157,
                     genspeed= (50*6, 50*8.337868262998404))
-    
+'''
