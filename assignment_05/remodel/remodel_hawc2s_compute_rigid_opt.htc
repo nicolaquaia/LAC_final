@@ -105,7 +105,7 @@
       node_distribution	c2_def;
       damping_posdef	0 0 0 0.00153 0.00255 0.00033;	3% damping tuned by tkim 23/03/13, unable to fit 3rd and higher mode
       begin timoschenko_input;
-        filename	./data/Group1_RWT_Blade_st.dat;
+        filename	./data/remodel_RWT_Blade_st.dat;
         set	1 1;	1 1=flexibe, 1 2=stiff
       end timoschenko_input;
       begin c2_def;	definition of centerline in main_body coordinates
@@ -307,15 +307,15 @@
     end rotating_threebladed_substructure;
 ;
 ; path to opt file, used for all commands EXCEPT compute_optimal_pitch_angle
-    operational_data_filename	./data/dtu_10mw_rigid.opt;	
+    operational_data_filename	./data/remodel_3_columns.opt;	
 ;
 ; settings for compute_optimal_pitch_angle
     begin operational_data;
       windspeed	4 25 22;	cut-in [m/s], cut-out [m/s], points [-] -- used if operational_data_file_wind is 0
-      genspeed	300 416.8934131499202;	min, max generator speed [rpm]
+      genspeed	300 469.1299724852213;	min, max generator speed [rpm]
       gearratio	50;	gear ratio [-]
       minpitch	0;	min. pitch angle [deg]
-      opt_lambda	7.263157;	optimal TSR [-]
+      opt_lambda	7.7;	optimal TSR [-]
       maxpow	10638.3;	rated aerodynamic power [kW]
       prvs_turbine	1;	1=pitch-regulated, variable-speed turbine
       operational_data_file_wind	1;	0=use wind defined in windspeed, 1=use wind defined in operational_data_filename above
