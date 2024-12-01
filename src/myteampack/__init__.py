@@ -100,7 +100,8 @@ class MyHTC(HTCFile):
         self.save((save_dir / (name + '.htc')).as_posix())
 
     def make_hawc2s(self, save_dir, rigid, append, opt_path, minpitch=0.001070, opt_lambda=8,
-                    genspeed=(0, 480), gearratio = 50,**kwargs ):
+                    genspeed=(0, 480), gearratio = 50, windspeed =(4, 25, 22),
+                    **kwargs ):
         """Make a HAWC2S file with specific settings.
 
         Args:
@@ -130,6 +131,7 @@ class MyHTC(HTCFile):
         self.hawcstab2.operational_data.minpitch = minpitch
         self.hawcstab2.operational_data.opt_lambda = opt_lambda
         self.hawcstab2.operational_data.gearratio = gearratio
+        self.hawcstab2.operational_data.windspeed = windspeed
         # add hawc2s commands
 
         self._add_hawc2s_commands(rigid=rigid, **kwargs)

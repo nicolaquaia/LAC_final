@@ -42,8 +42,25 @@ if __name__ == '__main__':
                     save_power=False,
                     compute_optimal_pitch_angle = True,
                     minpitch = 0,
-                    opt_lambda=7.7000,
-                    genspeed= (50*6, 50*9.382599449704426))
+                    opt_lambda=8.03746245202556,
+                    genspeed= (50*6, 50*9.382599449704426),
+                    windspeed =(3, 25, 23)
+                    )
+    
+    htc = MyHTC(ORIG_PATH)
+    # make rigid hawc2s file for compute rigid opt file
+    htc.make_hawc2s(SAVE_HAWC2S_DIR,
+                    rigid=True,
+                    append='_hawc2s_compute_rigid_shaved',
+                    opt_path='./data/remodel_rigid.opt',
+                    compute_steady_states=True,
+                    save_power=True,
+                    compute_optimal_pitch_angle = False,
+                    minpitch = 0,
+                    opt_lambda=8.03746245202556,
+                    genspeed= (50*6, 50*9.382599449704426),
+                    windspeed =(3, 25, 23)
+                    )
 
 
     htc = MyHTC(ORIG_PATH)
@@ -56,5 +73,5 @@ if __name__ == '__main__':
                     save_power=False,
                     compute_optimal_pitch_angle = True,
                     minpitch = 0,
-                    opt_lambda=7.7000,
+                    opt_lambda=8.03746245202556,
                     genspeed= (50*6, 50*9.382599449704426))
