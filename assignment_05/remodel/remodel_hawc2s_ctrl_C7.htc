@@ -307,13 +307,13 @@
     end rotating_threebladed_substructure;
 ;
 ; path to opt file, used for all commands EXCEPT compute_optimal_pitch_angle
-    operational_data_filename	./data/remodel_rigid.opt;	
+    operational_data_filename	./data/remodel_flex2.opt;	
 ;
 ; settings for compute_optimal_pitch_angle
     begin operational_data;
-      windspeed	3 25 23;	cut-in [m/s], cut-out [m/s], points [-] -- used if operational_data_file_wind is 0
-      genspeed	300 469.1299724852213;	min, max generator speed [rpm]
-      gearratio	50;	gear ratio [-]
+      windspeed	4 25 22;	cut-in [m/s], cut-out [m/s], points [-] -- used if operational_data_file_wind is 0
+      genspeed	6 9.382599449704426;	min, max generator speed [rpm]
+      gearratio	1.0;	gear ratio [-]
       minpitch	0;	min. pitch angle [deg]
       opt_lambda	8.03746245202556;	optimal TSR [-]
       maxpow	10638.3;	rated aerodynamic power [kW]
@@ -323,15 +323,24 @@
       set_torque_limit	1;	no torque limits if set to 1
     end operational_data;
     ; 
+; Need this block to call compute_controller_input
+    begin controller_tuning;
+      partial_load	0.05 0.7;	fn [hz], zeta [-]
+      full_load	0.06 0.7;	fn [hz], zeta [-]
+      gain_scheduling	2;	1 linear, 2 quadratic
+      constant_power	1;	0 constant torque, 1 constant power at full load
+      regions	5 10 12 31;	Index of opt point (starting from 1) where new ctrl region starts
+    end controller_tuning;
+    ; 
 ; HAWC2S commands (uncomment as needed)
     output_folder	res_hawc2s;	define the folder where generated files should be saved
-    compute_optimal_pitch_angle	use_operational_data;	re-calculate and save opt file (pitch/rotor speed curve)
+    ;compute_optimal_pitch_angle	use_operational_data;	re-calculate and save opt file (pitch/rotor speed curve)
     compute_steady_states	bladedeform tipcorrect induction nogradients;	compute steady states -- needed for aeroelastic calculations
     ;save_power	;	save steady-state values to .pwr
     ;save_induction	;	save steady-state spanwise values to .ind files, 3 for each wind speed
     ;compute_stability_analysis	windturbine 12;	compute/save aeroelastic campbell diagram (.cmb), XX modes
     ;save_modal_amplitude	;	save modal amplitudes and phrases to .amb file
-    ;compute_controller_input	;	calculate/save controller parameters (reqs. steady_states)
+    compute_controller_input	;	calculate/save controller parameters (reqs. steady_states)
   end hawcstab2;
 ;
 exit;

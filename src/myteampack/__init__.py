@@ -140,8 +140,9 @@ class MyHTC(HTCFile):
         print(f'File "{append}" saved.')
 
 
-    def make_hawc2s_ctrltune(self, save_dir, rigid, append, opt_path, 
-                            minpitch=0.001070, opt_lambda=8, genspeed=(0, 480), gearratio = 50, 
+    def make_hawc2s_ctrltune(self, save_dir, rigid, append, opt_path,
+                            minpitch=0.001070, opt_lambda=8, genspeed=(0, 480), 
+                            gearratio = 50, windspeed =(4, 25, 22),
                             partial_load = (0.05, 0.7), full_load= (0.06, 0.7),
                             gain_scheduling = 2, constant_power = 1, **kwargs ):
         """Make a HAWC2S file with specific settings.
@@ -173,6 +174,7 @@ class MyHTC(HTCFile):
         self.hawcstab2.operational_data.minpitch = minpitch
         self.hawcstab2.operational_data.opt_lambda = opt_lambda
         self.hawcstab2.operational_data.gearratio = gearratio
+        self.hawcstab2.operational_data.windspeed = windspeed
         self._add_ctrltune_block(partial_load,full_load,gain_scheduling,constant_power, **kwargs)
 
         # add hawc2s commands

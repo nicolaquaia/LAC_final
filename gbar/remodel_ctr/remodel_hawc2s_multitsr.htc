@@ -307,28 +307,28 @@
     end rotating_threebladed_substructure;
 ;
 ; path to opt file, used for all commands EXCEPT compute_optimal_pitch_angle
-    operational_data_filename	./data/remodel_rigid.opt;	
+    operational_data_filename	./data/remodel_multitsr.opt;	
 ;
 ; settings for compute_optimal_pitch_angle
     begin operational_data;
-      windspeed	3 25 23;	cut-in [m/s], cut-out [m/s], points [-] -- used if operational_data_file_wind is 0
-      genspeed	300 469.1299724852213;	min, max generator speed [rpm]
+      windspeed	4 25 22;	cut-in [m/s], cut-out [m/s], points [-] -- used if operational_data_file_wind is 0
+      genspeed	0 480;	min, max generator speed [rpm]
       gearratio	50;	gear ratio [-]
       minpitch	0;	min. pitch angle [deg]
-      opt_lambda	8.03746245202556;	optimal TSR [-]
+      opt_lambda	8;	optimal TSR [-]
       maxpow	10638.3;	rated aerodynamic power [kW]
       prvs_turbine	1;	1=pitch-regulated, variable-speed turbine
       operational_data_file_wind	1;	0=use wind defined in windspeed, 1=use wind defined in operational_data_filename above
-      include_torsiondeform	1;	0=rigid blade, 1=flexible blade
+      include_torsiondeform	0;	0=rigid blade, 1=flexible blade
       set_torque_limit	1;	no torque limits if set to 1
     end operational_data;
     ; 
 ; HAWC2S commands (uncomment as needed)
     output_folder	res_hawc2s;	define the folder where generated files should be saved
-    compute_optimal_pitch_angle	use_operational_data;	re-calculate and save opt file (pitch/rotor speed curve)
-    compute_steady_states	bladedeform tipcorrect induction nogradients;	compute steady states -- needed for aeroelastic calculations
-    ;save_power	;	save steady-state values to .pwr
-    ;save_induction	;	save steady-state spanwise values to .ind files, 3 for each wind speed
+    ;compute_optimal_pitch_angle	use_operational_data;	re-calculate and save opt file (pitch/rotor speed curve)
+    compute_steady_states	nobladedeform tipcorrect induction nogradients;	compute steady states -- needed for aeroelastic calculations
+    save_power	;	save steady-state values to .pwr
+    save_induction	;	save steady-state spanwise values to .ind files, 3 for each wind speed
     ;compute_stability_analysis	windturbine 12;	compute/save aeroelastic campbell diagram (.cmb), XX modes
     ;save_modal_amplitude	;	save modal amplitudes and phrases to .amb file
     ;compute_controller_input	;	calculate/save controller parameters (reqs. steady_states)
