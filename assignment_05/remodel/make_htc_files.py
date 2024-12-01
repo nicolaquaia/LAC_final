@@ -52,7 +52,7 @@ if __name__ == '__main__':
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=True,
                     append='_hawc2s_compute_rigid_shaved',
-                    opt_path='./data/remodel_rigid.opt',
+                    opt_path='./data/remodel_rigid_shaved.opt',
                     compute_steady_states=True,
                     save_power=True,
                     compute_optimal_pitch_angle = False,
