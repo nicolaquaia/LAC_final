@@ -42,8 +42,8 @@ if __name__ == '__main__':
                     save_power=False,
                     compute_optimal_pitch_angle = True,
                     minpitch = 0,
-                    opt_lambda=7.7000,
-                    genspeed= (50*6, 50*10.425110499671584 ))
+                    opt_lambda=7.500000000000002,
+                    genspeed= (50*6, 50*9.382599449704426))
 
 
     htc = MyHTC(ORIG_PATH)
