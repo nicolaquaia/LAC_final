@@ -3,10 +3,12 @@
 Requires myteampack (which requires lacbox).
 """
 from myteampack import MyHTC
+from lacbox.io import load_ctrl_txt
 
 if __name__ == '__main__':
     ORIG_PATH = './_master/remodel.htc'
     SAVE_HAWC2S_DIR = '.'
+    SAVE_HAWC2S_STEP = 'htc/'
 
     # make rigid hawc2s file for single-wsp opt file
     htc = MyHTC(ORIG_PATH)
@@ -116,7 +118,9 @@ if __name__ == '__main__':
 
     # assignment 3 part 2
     htc = MyHTC(ORIG_PATH)
-    data_fqc_damp = [[0.05,0.01,0.10,0.05,0.01,0.10,0.06,0.04,0.05,0.05],[0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.65],[1,1,1,0,0,0,1,1,1,1]]
+    #data_fqc_damp = [[0.05,0.01,0.10,0.05,0.01,0.10,0.06,0.04,0.05,0.05],[0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.65],[1,1,1,0,0,0,1,1,1,1]]
+    data_fqc_damp = [[0.05,0.01,0.10,0.05,0.01,0.10],[0.7,0.7,0.7,0.7,0.7,0.7],[1,1,1,0,0,0]]
+    
     for k in range(len(data_fqc_damp[0])):
         htc = MyHTC(ORIG_PATH)
         htc.make_hawc2s_ctrltune(SAVE_HAWC2S_DIR,
@@ -134,19 +138,19 @@ if __name__ == '__main__':
                         gain_scheduling = 2,
                         constant_power = data_fqc_damp[2][k]
         )
-'''
-        control_output = load_ctrl_txt(f'res_hawc2s/Group1_redesign_hawc2s_ctrl_C{k+1}_ctrl_tuning.txt')
+
+        control_output = load_ctrl_txt(f'res_hawc2s/remodel_hawc2s_ctrl_C{k+1}_ctrl_tuning.txt')
         htc = MyHTC(ORIG_PATH)
         htc.make_step(SAVE_HAWC2S_STEP,
-                    append=f'_hawc2s_step_C{k+1}',
+                    append=f'_hawc2_step_C{k+1}',
                     compute_steady_states=True,
                     compute_controller_input = True,
                     save_power = True,
                     genspeed= (0, 8.337868262998404),
                     gearratio = 1.0,
                     P_rated = 10638.3,
-                    min_rot_speed = 0,
-                    rated_rot_speed = 0.87336,
+                    min_rot_speed = 6,
+                    rated_rot_speed = 9.382599449704426,
                     max_torque = 18200000,
                     theta_min = 0,
                     constant_power = 1,
@@ -164,6 +168,4 @@ if __name__ == '__main__':
                     turb_format = 0,
                     tower_shadow_method = 0,
                     time = [0,1001]
-
         )
-'''
