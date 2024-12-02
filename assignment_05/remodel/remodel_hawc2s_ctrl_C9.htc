@@ -326,7 +326,7 @@
 ; Need this block to call compute_controller_input
     begin controller_tuning;
       partial_load	0.05 0.7;	fn [hz], zeta [-]
-      full_load	0.05 0.8;	fn [hz], zeta [-]
+      full_load	0.04 0.7;	fn [hz], zeta [-]
       gain_scheduling	2;	1 linear, 2 quadratic
       constant_power	1;	0 constant torque, 1 constant power at full load
       regions	5 10 12 31;	Index of opt point (starting from 1) where new ctrl region starts

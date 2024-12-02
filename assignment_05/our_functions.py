@@ -86,16 +86,29 @@ def ideal_curve(flex_path, res_step_path):
     # find time for every wind speed
     idx_array = []
     for ws in wind_speed:
-        idx = np.argmin(h2res.data[:,14] < ws)+10
+        idx = np.argmin(h2res.data[:,14] < ws)
         idx_array.append(idx)
 
     idx_array = np.array(idx_array)
     idx_array[6] = idx_array[6]-4000
     idx_array[20] = idx_array[20]-4000
     idx_array[25] = idx_array[25]-4000
+    for i in range(8,17):
+        idx_array[i] = idx_array[17]
     
     return idx_array
 
+
+def compute_overshoot_settling(array, idx_start, mean, tolerance=0.01):
+    
+    idx_lim = idx_start + 3800
+    array_reduced = array[idx_start:idx_lim]
+    overshoot = np.max(abs(array_reduced))/mean*100
+    exceeding = array_reduced / mean
+    settling_idx = np.where((exceeding < 1+tolerance) & (exceeding > 1-tolerance) )[0][0]
+    settling_idx += idx_start
+
+    return overshoot, settling_idx
 
 
 def load_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, chan_ids):
