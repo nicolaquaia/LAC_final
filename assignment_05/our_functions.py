@@ -1,7 +1,7 @@
 
 import numpy as np
 from our_values import *
-from lacbox.io import load_stats
+from lacbox.io import load_stats, load_oper, ReadHAWC2
 
 
 def extract_bd_master(file_path,
@@ -72,6 +72,29 @@ def scale_ST_data(baseline_st_data, scale_factor):
     st_data["x_e"] = baseline_st_data["x_e"] * scale_factor
     st_data["y_e"] = baseline_st_data["y_e"] * scale_factor
     return st_data
+
+
+
+
+def ideal_curve(flex_path, res_step_path):
+    data = load_oper(flex_path)
+
+    wind_speed =data['ws_ms']#[i for i in range(len(data['ws_ms']))]
+
+    h2res = ReadHAWC2(res_step_path)
+
+    # find time for every wind speed
+    idx_array = []
+    for ws in wind_speed:
+        idx = np.argmin(h2res.data[:,14] < ws)+10
+        idx_array.append(idx)
+
+    idx_array = np.array(idx_array)
+    idx_array[6] = idx_array[6]-4000
+    idx_array[20] = idx_array[20]-4000
+    idx_array[25] = idx_array[25]-4000
+    
+    return idx_array
 
 
 

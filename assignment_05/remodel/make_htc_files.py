@@ -8,7 +8,7 @@ from lacbox.io import load_ctrl_txt
 if __name__ == '__main__':
     ORIG_PATH = './_master/remodel.htc'
     SAVE_HAWC2S_DIR = '.'
-    SAVE_HAWC2S_STEP = 'htc/'
+    SAVE_HAWC2S_STEP = '.'
 
     # make rigid hawc2s file for single-wsp opt file
     htc = MyHTC(ORIG_PATH)
@@ -109,11 +109,12 @@ if __name__ == '__main__':
                 gearratio = 1.0,
                 minpitch = 0,
                 opt_lambda=8.03746245202556,
+                maxpow = 10641.618,
                 partial_load = (0.05, 0.7),
                 full_load = (0.06, 0.7),
                 gain_scheduling = 2,
                 constant_power = 1,
-                windspeed = (3, 25, 23)
+                windspeed = (4, 25, 22)
                 )
 
     # assignment 3 part 2
@@ -146,11 +147,11 @@ if __name__ == '__main__':
                     compute_steady_states=True,
                     compute_controller_input = True,
                     save_power = True,
-                    genspeed= (0, 8.337868262998404),
+                    genspeed= (6, 9.382599449704426),
                     gearratio = 1.0,
                     P_rated = 10638.3,
-                    min_rot_speed = 6,
-                    rated_rot_speed = 9.382599449704426,
+                    min_rot_speed = 0.6283185307179586,
+                    rated_rot_speed = 0.982543516758902,
                     max_torque = 18200000,
                     theta_min = 0,
                     constant_power = 1,
