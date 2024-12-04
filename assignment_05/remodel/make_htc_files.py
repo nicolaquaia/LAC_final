@@ -5,11 +5,17 @@ Requires myteampack (which requires lacbox).
 from myteampack import MyHTC
 from lacbox.io import load_ctrl_txt
 
+txt_done = False
+
+
 if __name__ == '__main__':
     ORIG_PATH = './_master/remodel.htc'
     SAVE_HAWC2S_DIR = '.'
     SAVE_HAWC2S_STEP = '.'
 
+    '''
+    01: blade design
+    '''
     # make rigid hawc2s file for single-wsp opt file
     htc = MyHTC(ORIG_PATH)
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
@@ -94,6 +100,25 @@ if __name__ == '__main__':
                     windspeed =(3, 25, 23)
                     )
     
+    '''
+    02: modal analysis
+    '''
+
+    htc = MyHTC(ORIG_PATH)
+    htc.make_hawc2s(SAVE_HAWC2S_DIR,
+                rigid=False,
+                append='_flex_modal_analysis',
+                opt_path='./data/remodel_flex2.opt',
+                compute_steady_states=True,
+                compute_stability_analysis = True,
+                save_modal_amplitude = True,
+                minpitch = 0,
+                opt_lambda=8.03746245202556,
+                genspeed= (50*6, 50*9.382599449704426),
+                windspeed =(4, 25, 22)
+                )
+
+
 
     # controller
     # remove region
@@ -142,34 +167,35 @@ if __name__ == '__main__':
                         constant_power = data_fqc_damp[2][k]
         )
 
-        control_output = load_ctrl_txt(f'res_hawc2s/remodel_hawc2s_ctrl_C{k+1}_ctrl_tuning.txt')
-        htc = MyHTC(ORIG_PATH)
-        htc.make_step(SAVE_HAWC2S_STEP,
-                    append=f'_hawc2_step_C{k+1}',
-                    compute_steady_states=True,
-                    compute_controller_input = True,
-                    save_power = True,
-                    genspeed= (6, 9.382599449704426),
-                    gearratio = 1.0,
-                    P_rated = 10638.3,
-                    min_rot_speed = 0.6283185307179586,
-                    rated_rot_speed = 0.982543516758902,
-                    max_torque = 18200000,
-                    theta_min = 0,
-                    constant_power = 1,
-                    KpTrq = control_output['KpTrq_Nm/(rad/s)'],
-                    KiTrq = control_output['KiTrq_Nm/rad'],
-                    KpPit = control_output['KpPit_rad/(rad/s)'],
-                    KiPit = control_output['KiPit_rad/rad'],
-                    K1 = control_output['K1_deg'],
-                    K2 = control_output['K2_deg^2'],
-                    K_opt = control_output['K_Nm/(rad/s)^2'],
-                    time_stop = 1001,
-                    wsp = 4,
-                    shear_format = [3,0],
-                    tint = 0,
-                    turb_format = 0,
-                    tower_shadow_method = 0,
-                    time = [0,1001]
-        )
+        if txt_done:
+            control_output = load_ctrl_txt(f'res_hawc2s/remodel_hawc2s_ctrl_C{k+1}_ctrl_tuning.txt')
+            htc = MyHTC(ORIG_PATH)
+            htc.make_step(SAVE_HAWC2S_STEP,
+                        append=f'_hawc2_step_C{k+1}',
+                        compute_steady_states=True,
+                        compute_controller_input = True,
+                        save_power = True,
+                        genspeed= (6, 9.382599449704426),
+                        gearratio = 1.0,
+                        P_rated = 10638.3,
+                        min_rot_speed = 0.6283185307179586,
+                        rated_rot_speed = 0.982543516758902,
+                        max_torque = 18200000,
+                        theta_min = 0,
+                        constant_power = 1,
+                        KpTrq = control_output['KpTrq_Nm/(rad/s)'],
+                        KiTrq = control_output['KiTrq_Nm/rad'],
+                        KpPit = control_output['KpPit_rad/(rad/s)'],
+                        KiPit = control_output['KiPit_rad/rad'],
+                        K1 = control_output['K1_deg'],
+                        K2 = control_output['K2_deg^2'],
+                        K_opt = control_output['K_Nm/(rad/s)^2'],
+                        time_stop = 1001,
+                        wsp = 4,
+                        shear_format = [3,0],
+                        tint = 0,
+                        turb_format = 0,
+                        tower_shadow_method = 0,
+                        time = [0,1001]
+            )
 

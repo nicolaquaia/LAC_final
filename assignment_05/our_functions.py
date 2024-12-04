@@ -104,8 +104,14 @@ def compute_overshoot_settling(array, idx_start, mean, tolerance=0.01):
     idx_lim = idx_start + 3800
     array_reduced = array[idx_start:idx_lim]
     overshoot = np.max(abs(array_reduced))/mean*100
-    exceeding = array_reduced / mean
-    settling_idx = np.where((exceeding < 1+tolerance) & (exceeding > 1-tolerance) )[0][0]
+    
+    ratio = array_reduced / mean
+    more = ratio < 1+tolerance
+    less = ratio > 1-tolerance
+    combined = more & less
+    reversed_idx = np.argmax(combined[::-1] == False)
+    settling_idx =  len(ratio) - reversed_idx
+
     settling_idx += idx_start
 
     return overshoot, settling_idx
