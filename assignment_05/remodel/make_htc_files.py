@@ -5,7 +5,6 @@ Requires myteampack (which requires lacbox).
 from myteampack import MyHTC
 from lacbox.io import load_ctrl_txt
 
-txt_done = False
 
 
 if __name__ == '__main__':
@@ -167,6 +166,8 @@ if __name__ == '__main__':
                         constant_power = data_fqc_damp[2][k]
         )
 
+        txt_done = True
+
         if txt_done:
             control_output = load_ctrl_txt(f'res_hawc2s/remodel_hawc2s_ctrl_C{k+1}_ctrl_tuning.txt')
             htc = MyHTC(ORIG_PATH)
@@ -181,7 +182,7 @@ if __name__ == '__main__':
                         min_rot_speed = 0.6283185307179586,
                         rated_rot_speed = 0.982543516758902,
                         max_torque = 18200000,
-                        theta_min = 0,
+                        theta_min = 101,
                         constant_power = 1,
                         KpTrq = control_output['KpTrq_Nm/(rad/s)'],
                         KiTrq = control_output['KiTrq_Nm/rad'],
