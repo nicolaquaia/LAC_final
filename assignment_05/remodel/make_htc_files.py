@@ -6,16 +6,11 @@ from myteampack import MyHTC
 from lacbox.io import load_ctrl_txt
 
 
-
-if __name__ == '__main__':
-    ORIG_PATH = './_master/remodel.htc'
-    SAVE_HAWC2S_DIR = '.'
-    SAVE_HAWC2S_STEP = '.'
-
+def blade_design(ORIG_PATH,SAVE_HAWC2S_DIR):
     '''
     01: blade design
     '''
-    # make rigid hawc2s file for single-wsp opt file
+    # single-wsp opt file
     htc = MyHTC(ORIG_PATH)
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=True,
@@ -27,8 +22,8 @@ if __name__ == '__main__':
                     minpitch = 0
                     )
 
+    # multi-tsr opt file
     htc = MyHTC(ORIG_PATH)
-    # make rigid hawc2s file for multi-wsp opt file
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=True,
                     append='_hawc2s_multitsr',
@@ -38,9 +33,9 @@ if __name__ == '__main__':
                     save_induction=True,
                     minpitch = 0
                     )
-                  
+
+    # rigid opt                  
     htc = MyHTC(ORIG_PATH)
-    # make rigid hawc2s file for compute rigid opt file
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=True,
                     append='_hawc2s_compute_rigid_opt',
@@ -53,9 +48,9 @@ if __name__ == '__main__':
                     genspeed= (50*6, 50*9.382599449704426),
                     windspeed =(3, 25, 23)
                     )
-    
+
+    # rigid shaved opt    
     htc = MyHTC(ORIG_PATH)
-    # make rigid hawc2s file for compute rigid opt file
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=True,
                     append='_hawc2s_compute_rigid_shaved',
@@ -69,9 +64,8 @@ if __name__ == '__main__':
                     windspeed =(3, 25, 23)
                     )
 
-
+    # flex opt
     htc = MyHTC(ORIG_PATH)
-    # make rigid hawc2s file for compute rigid opt file
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=False,
                     append='_hawc2s_flex',
@@ -84,8 +78,8 @@ if __name__ == '__main__':
                     genspeed= (50*6, 50*9.382599449704426),
                     windspeed =(3, 25, 23))
     
+    # flex shaved 1    
     htc = MyHTC(ORIG_PATH)
-    # make rigid hawc2s file for compute rigid opt file
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                     rigid=False,
                     append='_hawc2s_compute_flex_shaved',
@@ -99,10 +93,25 @@ if __name__ == '__main__':
                     windspeed =(3, 25, 23)
                     )
     
+    # flex shaved 2    
+    htc = MyHTC(ORIG_PATH)
+    htc.make_hawc2s(SAVE_HAWC2S_DIR,
+                    rigid=False,
+                    append='_hawc2s_compute_flex_shaved2',
+                    opt_path='./data/remodel_flex_shaved2.opt',
+                    compute_steady_states=True,
+                    save_power=True,
+                    compute_optimal_pitch_angle = False,
+                    minpitch = 0,
+                    opt_lambda=8.03746245202556,
+                    genspeed= (50*6, 50*9.382599449704426)
+                    )
+    
+
+def modal_analysis(ORIG_PATH,SAVE_HAWC2S_DIR):
     '''
     02: modal analysis
     '''
-
     htc = MyHTC(ORIG_PATH)
     htc.make_hawc2s(SAVE_HAWC2S_DIR,
                 rigid=False,
@@ -113,11 +122,11 @@ if __name__ == '__main__':
                 save_modal_amplitude = True,
                 minpitch = 0,
                 opt_lambda=8.03746245202556,
-                genspeed= (50*6, 50*9.382599449704426),
-                windspeed =(4, 25, 22)
+                genspeed= (50*6, 50*9.382599449704426)
                 )
 
 
+def controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = False):
 
     # controller
     # remove region
@@ -166,8 +175,6 @@ if __name__ == '__main__':
                         constant_power = data_fqc_damp[2][k]
         )
 
-        txt_done = True
-
         if txt_done:
             control_output = load_ctrl_txt(f'res_hawc2s/remodel_hawc2s_ctrl_C{k+1}_ctrl_tuning.txt')
             htc = MyHTC(ORIG_PATH)
@@ -200,3 +207,16 @@ if __name__ == '__main__':
                         time = [0,1001]
             )
 
+
+
+if __name__ == '__main__':
+    ORIG_PATH = './_master/remodel.htc'
+    SAVE_HAWC2S_DIR = '.'
+    SAVE_HAWC2S_STEP = '.'
+
+    blade_design(ORIG_PATH,SAVE_HAWC2S_DIR)
+    #modal_analysis(ORIG_PATH,SAVE_HAWC2S_DIR)
+    #controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = False)
+
+    
+    

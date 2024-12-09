@@ -149,10 +149,11 @@ def load_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, chan_ids):
             i_h2 = np.argsort(h2_wind) # sorts indexies so the wind speed array is in ascending order
 
             groups = [i_h2[i:i + 6] for i in range(0, len(i_h2), 6)]
-            ws_array = np.zeros(20)
-            average_array = np.zeros(20)
-            max_array = np.zeros(20)
-            min_array = np.zeros(20)
+            nws = len(groups)
+            ws_array = np.zeros(nws)
+            average_array = np.zeros(nws)
+            max_array = np.zeros(nws)
+            min_array = np.zeros(nws)
 
             for idx, group in enumerate(groups): # index, group
                 ws_array[idx] = h2_wind[groups[idx]][0]
@@ -226,9 +227,10 @@ def DEL_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, wohler_4, wohler_10,
 
         # compute 10-min DELs combined within each wind-speed bin: 
         groups = [i_h2[i:i + 6] for i in range(0, len(i_h2), 6)]
-        ws_array = np.zeros(20)
-        R_eq_array = np.zeros(20)
-        ci_array = np.zeros(20)
+        nws = len(groups)
+        ws_array = np.zeros(nws)
+        R_eq_array = np.zeros(nws)
+        ci_array = np.zeros(nws)
         for idx, group in enumerate(groups):
             ws_array[idx] = h2_wind[groups[idx]][0]
             R_eq_array[idx] = (sum(HAWC2val[groups[idx]]**wohler_exp)/n_seed)**(1/wohler_exp) # takes an average load from the 6 cases
@@ -272,8 +274,9 @@ def twr_clr_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS):
     h2_wind, HAWC2val = np.array(h2_wind), np.array(HAWC2val)
     i_h2 = np.argsort(h2_wind)
     groups = [i_h2[i:i + 6] for i in range(0, len(i_h2), 6)]
-    ws_array = np.zeros(20)
-    twr_clr_array = np.zeros(20)
+    nws = len(groups)
+    ws_array = np.zeros(nws)
+    twr_clr_array = np.zeros(nws)
     for idx, group in enumerate(groups):
         ws_array[idx] = h2_wind[groups[idx]][0]
         twr_clr_array[idx] = np.amin(HAWC2val[groups[idx]])
@@ -299,8 +302,9 @@ def AEP_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS):
     h2_wind, HAWC2val = np.array(h2_wind), np.array(HAWC2val)
     i_h2 = np.argsort(h2_wind)
     groups = [i_h2[i:i + 6] for i in range(0, len(i_h2), 6)]
-    ws_array = np.zeros(20)
-    power_array = np.zeros(20)
+    nws = len(groups)
+    ws_array = np.zeros(nws)
+    power_array = np.zeros(nws)
     for idx, group in enumerate(groups):
         ws_array[idx] = h2_wind[groups[idx]][0]
         power_array[idx] = np.mean(HAWC2val[groups[idx]])
