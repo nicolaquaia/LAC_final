@@ -180,6 +180,7 @@ def controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = False):
             htc = MyHTC(ORIG_PATH)
             htc.make_step(SAVE_HAWC2S_STEP,
                         append=f'_hawc2_step_C{k+1}',
+                        opt_path='./data/remodel_flex3.opt',
                         compute_steady_states=True,
                         compute_controller_input = True,
                         save_power = True,
@@ -216,4 +217,4 @@ if __name__ == '__main__':
 
     #blade_design(ORIG_PATH,SAVE_HAWC2S_DIR)
     #modal_analysis(ORIG_PATH,SAVE_HAWC2S_DIR)
-    controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = False)
+    controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = True)
