@@ -25,3 +25,18 @@ if __name__ == '__main__':
                     compute_steady_states=True,
                     save_power=True,
                     save_induction=True)
+    
+
+    # rigid opt                  
+    htc = MyHTC(ORIG_PATH)
+    htc.make_hawc2s(SAVE_HAWC2S_DIR,
+                    rigid=True,
+                    append='_hawc2s_compute_rigid_opt',
+                    opt_path='./data/dtu_10mw_flex_minrotspd.opt',
+                    compute_steady_states=False,
+                    save_power=False,
+                    compute_optimal_pitch_angle = True,
+                    minpitch = 0,
+                    opt_lambda=8.03746245202556,
+                    genspeed= (50*6, 480)
+                    )

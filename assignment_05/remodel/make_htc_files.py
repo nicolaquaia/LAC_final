@@ -127,9 +127,9 @@ def modal_analysis(ORIG_PATH,SAVE_HAWC2S_DIR):
 
 
 def controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = False):
-
-    # controller
-    # remove region
+    '''
+    03: controller
+    '''
     htc = MyHTC(ORIG_PATH)
     htc.make_hawc2s_ctrltune(SAVE_HAWC2S_DIR,
                 rigid=False,
@@ -214,9 +214,6 @@ if __name__ == '__main__':
     SAVE_HAWC2S_DIR = '.'
     SAVE_HAWC2S_STEP = '.'
 
-    blade_design(ORIG_PATH,SAVE_HAWC2S_DIR)
+    #blade_design(ORIG_PATH,SAVE_HAWC2S_DIR)
     #modal_analysis(ORIG_PATH,SAVE_HAWC2S_DIR)
-    #controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = False)
-
-    
-    
+    controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = False)

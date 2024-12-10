@@ -106,18 +106,21 @@ def make_single_turb(htc, wsp, turbclass, htc_dir='./htc_turb/', res_dir='./res_
 
 
 def main():
-    """Create the htc files for the different cases, adjusting settings.
+    """
+    Create the htc files for the different cases, adjusting settings.
     Save the htc files in subfolders corresponding to the different cases.
     This code would be better placed at the end of your make_htc_files.py script...
     """
     # constants for this script
     del_htc_dir = True  # delete htc directory if it already exists?
     master_htc = './_master/remodel.htc'
-    opt_path = './data/remodel_flex3.opt'
+    opt_path = './data/remodel_flex2.opt'
     wsps = range(4, 25)  # wind speed range
 
+    # control specific: change all 3
     htc_dir = './htc_turb_C12/'  # top-level folder to save htc files (can be path to gbar!)
     res_dir = './res_turb_C12/'  # where HAWC2 should save res files, relative to its working directory
+    control_output = load_ctrl_txt(f'res_hawc2s/remodel_hawc2s_ctrl_C12_ctrl_tuning.txt')
 
 
     start_seed = 42  # initialize the random-number generator for reproducability
@@ -125,10 +128,6 @@ def main():
     num_seeds = 6  # Number of different seeds for each wind speed
     # delete the top-level directory if requested
     _clean_directory(htc_dir, del_htc_dir)
-
-    # control specific
-    control_output = load_ctrl_txt(f'res_hawc2s/remodel_hawc2s_ctrl_C12_ctrl_tuning.txt')
-
     for turbclass in turbclasses:
         # make the files
         random.seed(start_seed)

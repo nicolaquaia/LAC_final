@@ -288,7 +288,8 @@ def twr_clr_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS):
 
     return result
 
-def AEP_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS):
+
+def AEP_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, wind_class=3):
     '''
     function that extract probability and AEP from the csv file
     gives probability per bin, power per bin, final AEP value
@@ -309,21 +310,23 @@ def AEP_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS):
         ws_array[idx] = h2_wind[groups[idx]][0]
         power_array[idx] = np.mean(HAWC2val[groups[idx]])
 
-    bins = [(ws - 0.5, ws + 0.5) for ws in ws_array]
+    if wind_class == 3:
+        V_ave = 7.5
+    if wind_class == 1:
+        V_ave = 10
 
     prob_array = np.zeros(len(ws_array))
     for i, ws in enumerate(ws_array):
-        a = ((ws - 0.5)**2 * np.pi) / 225
-        b = ((ws + 0.5)**2 * np.pi) / 225
-        prob_array[i] = np.exp(-a) - np.exp(-b)
+        p1 = 1 - np.exp(-np.pi*((ws-0.5)/(2*V_ave))**2)
+        p2 = 1 - np.exp(-np.pi*((ws+0.5)/(2*V_ave))**2)
+        prob_array[i] = p2 - p1
 
     T = 365 * 24
     AEP = sum(prob_array * power_array)*T
 
     result = {
         'ws' : ws_array,                 # wind speeds
-        'bins': bins,                   # Edges of wind-speed bins
-        'prob' : prob_array ,           # Bin probabilities
+        'prob' : prob_array,           # Bin probabilities
         'power' : power_array/1e6,      # Power in each bin [MW]
         'AEP' : AEP/1e9                 # annual energy production [GWh]
     }

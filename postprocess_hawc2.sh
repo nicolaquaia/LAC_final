@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-#BSUB -J postprocess_hawc2
+#BSUB -J post_C1
 #BSUB -q hpc 
 #BSUB -n 1
 #BSUB -W 03:00
