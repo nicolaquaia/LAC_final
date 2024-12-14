@@ -133,7 +133,7 @@ def controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = False):
     htc = MyHTC(ORIG_PATH)
     htc.make_hawc2s_ctrltune(SAVE_HAWC2S_DIR,
                 rigid=False,
-                append='_hawc2s_ctrltune',
+                append='_hawc2s_ctrltune_smallShave',
                 opt_path='./data/remodel_flex2.opt',
                 compute_steady_states=True,
                 compute_controller_input = True,
@@ -146,8 +146,26 @@ def controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = False):
                 partial_load = (0.05, 0.7),
                 full_load = (0.06, 0.7),
                 gain_scheduling = 2,
-                constant_power = 1,
-                windspeed = (4, 25, 22)
+                constant_power = 1
+                )
+    
+    htc = MyHTC(ORIG_PATH)
+    htc.make_hawc2s_ctrltune(SAVE_HAWC2S_DIR,
+                rigid=False,
+                append='_hawc2s_ctrltune_largeShave',
+                opt_path='./data/remodel_flex3.opt',
+                compute_steady_states=True,
+                compute_controller_input = True,
+                save_power = True,
+                genspeed= (6, 9.382599449704426),
+                gearratio = 1.0,
+                minpitch = 0,
+                opt_lambda=8.03746245202556,
+                maxpow = 10641.618,
+                partial_load = (0.05, 0.7),
+                full_load = (0.06, 0.7),
+                gain_scheduling = 2,
+                constant_power = 1
                 )
 
     # assignment 3 part 2
@@ -215,6 +233,6 @@ if __name__ == '__main__':
     SAVE_HAWC2S_DIR = '.'
     SAVE_HAWC2S_STEP = '.'
 
-    blade_design(ORIG_PATH,SAVE_HAWC2S_DIR)
+    #blade_design(ORIG_PATH,SAVE_HAWC2S_DIR)
     #modal_analysis(ORIG_PATH,SAVE_HAWC2S_DIR)
-    #controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = True)
+    controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = True)

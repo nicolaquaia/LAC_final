@@ -1,5 +1,7 @@
 
 import numpy as np
+import pandas as pd
+from scipy.optimize import curve_fit
 from our_values import *
 from lacbox.io import load_stats, load_oper, ReadHAWC2
 
@@ -74,6 +76,114 @@ def scale_ST_data(baseline_st_data, scale_factor):
     return st_data
 
 
+
+# hawc2s values
+
+def load_ctrl_tuning(file_path):
+    with open(file_path, 'r') as file:
+        file_content = file.read()
+
+    # Split the file content into lines
+    lines = file_content.splitlines()
+
+    # Initialize the dictionary with predefined keys
+    data_dict = {
+        "K_opt": None,
+        "I": None,
+        "Kp_torque": None,
+        "Ki_torque": None,
+        "Kp_pitch": None,
+        "Ki_pitch": None,
+        "KK1": None,
+        "KK2": None,
+        "dQ_dtheta_0": None
+    }
+
+    # Manually assign values based on line positions
+    data_dict["K_opt"] = float(lines[1].split('=')[1].split()[0])
+    data_dict["I"] = float(lines[3].split('=')[1].split()[0])
+    data_dict["Kp_torque"] = float(lines[4].split('=')[1].split()[0])
+    data_dict["Ki_torque"] = float(lines[5].split('=')[1].split()[0])
+    data_dict["Kp_pitch"] = float(lines[7].split('=')[1].split()[0])
+    data_dict["Ki_pitch"] = float(lines[8].split('=')[1].split()[0])
+    data_dict["KK1"] = float(lines[9].split('=')[1].split()[0])
+    data_dict["KK2"] = float(lines[9].split('=')[2].split()[0])
+    data_dict["dQ_dtheta_0"] = float(lines[9].split('=')[3].split()[0])
+
+    #data_dict["dQ_dtheta_0"] = np.rad2deg(data_dict["dQ_dtheta_0"])*1e3
+
+
+
+    fit = pd.read_csv(file_path, sep='\\s+', skiprows=17, header=None)
+    fit.columns = ['theta', 'dq_dtheta', 'fit_theta', 'dq_domega', 'fit_omega']
+
+    return data_dict, fit
+
+def fit_curve_KK(fit_redesign, hawc2s_data):
+
+    theta = fit_redesign['theta']
+    dQdtheta = fit_redesign['dq_dtheta']  # Replace with your actual y data
+    c = hawc2s_data["dQ_dtheta_0"]
+
+    # Fit the model to the data
+    def model(x, K1, K2):
+        return c * (1 + x/K1 + (x**2)/K2)
+
+    initial_guess = [1, 1]  # Initial guess for K1 and K2
+    params, covariance = curve_fit(model, theta, dQdtheta, p0=initial_guess)
+
+    # Extract the optimal values of K1 and K2
+    KK1, KK2 = params
+    dQdtheta_fit =  model(theta, KK1, KK2)
+
+    return KK1, KK2, dQdtheta_fit
+
+def compute_ctrl_tuning(hawc2s_data, fit_redesign):
+
+    eta = 1
+    I_r = 1         # rotor inertia, what is the value?
+    I_g = 1         # equivalent generator inertia, what is the value?
+    n_g = 1         # gear box ratio
+    I = I_r + n_g**2 * I_g
+    I = hawc2s_data['I']
+
+    # region 2: optinmal CP tracking
+    K_opt = eta * RHO * np.pi * R_Y**5 * CP_MAX / (2 * TSR_OPT**3)
+
+    # region 2.5: rotor speed regulation
+    omega_speed_torque = 0.05*2*np.pi
+    zeta_speed_torque = 0.7
+    Kp_torque = 2 * eta * zeta_speed_torque * omega_speed_torque * I
+    Ki_torque = eta * I * omega_speed_torque**2
+
+    # region 3:
+    omega_speed_pitch = 0.06*2*np.pi
+    zeta_speed_pitch = 0.7
+    KK1, KK2, dQdtheta_fit = fit_curve_KK(fit_redesign, hawc2s_data)
+    dQ_dtheta_0 = np.rad2deg(hawc2s_data['dQ_dtheta_0'])*1e3     # ???
+
+    dQ_dtheta = dQ_dtheta_0
+    dQg_domega = POWER_MAX / ((OMEGA_MAX*2*np.pi/60)**2)
+
+    Kp_pitch = (2 * zeta_speed_pitch * omega_speed_pitch * I + 1/eta *dQg_domega) / (-dQ_dtheta)
+    Ki_pitch = (omega_speed_pitch**2 * I) / (- dQ_dtheta)
+    
+    # K_P_P = -(2*(I)*omega_P*zeta+Power/rot_speed**2)/dqdtheta
+    
+    dQ_dtheta_0  = np.deg2rad(dQ_dtheta_0/1e3)
+    th_data = {
+            "K_opt": K_opt,
+            "I": I,
+            "Kp_torque": Kp_torque,
+            "Ki_torque": Ki_torque,
+            "Kp_pitch": Kp_pitch,
+            "Ki_pitch": Ki_pitch,
+            "KK1": KK1,
+            "KK2": KK2,
+            "dQ_dtheta_0": dQ_dtheta_0
+        }
+    
+    return th_data
 
 
 def ideal_curve(flex_path, res_step_path):
