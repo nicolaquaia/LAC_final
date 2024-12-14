@@ -215,6 +215,6 @@ if __name__ == '__main__':
     SAVE_HAWC2S_DIR = '.'
     SAVE_HAWC2S_STEP = '.'
 
-    #blade_design(ORIG_PATH,SAVE_HAWC2S_DIR)
+    blade_design(ORIG_PATH,SAVE_HAWC2S_DIR)
     #modal_analysis(ORIG_PATH,SAVE_HAWC2S_DIR)
-    controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = True)
+    #controller(ORIG_PATH,SAVE_HAWC2S_DIR, SAVE_HAWC2S_STEP, txt_done = True)
