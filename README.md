@@ -1,5 +1,5 @@
 # Final Report of LAC Course
-In this report, a new version of the DTU 10 MW blade is proposed, building on the experience from the redesign completed within Group 1. The new design has the same goal: to change the wind class from 1A to 3B while adhering to the same design criteria—specifically, increasing the Annual Energy Production (AEP) while maintaining similar or lower design loads.
+In this report, a new version of the DTU 10 MW blade is proposed, building on the experience from the redesign completed within Group 1. The new design has the same goal: to change the wind class from 1A to 3B while adhering to the same design criteria. Specifically, increasing the Annual Energy Production (AEP) while maintaining similar or lower design loads.
 
 ### Blades Analyzed:
 1. **Original DTU 10 MW blade**: Referred to as 'DTU.'
@@ -7,9 +7,9 @@ In this report, a new version of the DTU 10 MW blade is proposed, building on th
 3. **Final New Version**: Referred to as 'remodel,' addressing the issues identified in Group 1's redesign.
 
 ### Issues with Group 1 Redesign:
-- The redesigned blade had a reasonable shape but an inefficient control strategy, resulting in:
-  - **Lower AEP**: -1.19%
-  - **Resonance Phenomenon**: Occurring around 7 m/s, increasing design loads.
+The redesigned blade had a reasonable shape but an inefficient control strategy, resulting in:
+- **Lower AEP**: -1.19%
+- **Resonance Phenomenon**: Occurring around 7 m/s, increasing design loads.
 
 ### Proposed Changes for the Remodel:
 1. **Shorter Blade**: -1% to reduce the inertial moment and design loads, with minimal compromise on power production
