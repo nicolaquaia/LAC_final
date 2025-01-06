@@ -30,7 +30,7 @@ A complete redesign of the blade was undertaken:
 
 ---
 
-## Group 1 Members:
-&nbsp;&nbsp;&nbsp;Nicola Quaia&nbsp;&nbsp;s232439  <b>
-&nbsp;&nbsp;&nbsp;Mathéo Chala&nbsp;&nbsp;s233011 <b>
+## Group 1 Members:  
+&nbsp;&nbsp;&nbsp;Nicola Quaia&nbsp;&nbsp;s232439  
+&nbsp;&nbsp;&nbsp;Mathéo Chala&nbsp;&nbsp;s233011  
 &nbsp;&nbsp;&nbsp;Bogusz Adam Glaza&nbsp;&nbsp;s233186  
