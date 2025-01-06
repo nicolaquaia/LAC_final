@@ -426,7 +426,14 @@ def AEP_calculation(STATS_PATH, SUBFOLDER, CHAN_DESCS, wind_class=3):
         prob_array[i] = p2 - p1
 
     T = 365 * 24
+
     AEP = sum(prob_array * power_array)*T
+    
+    if len(prob_array)==21:
+        AEP1 = sum(prob_array[1:] * power_array[1:])*T
+        AEP_bin1 = prob_array[0] * power_array[0]* T/2
+        AEP = AEP1 + AEP_bin1
+
 
     result = {
         'ws' : ws_array,                 # wind speeds
