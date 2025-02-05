@@ -13,12 +13,11 @@
  ***********************************************************************
 ________________________________________________________________________
   Log file output
-                                                       Time : 18:46:23
-                                                       Date : 01:12.2024
+                                                       Time : 14:23:22
+                                                       Date : 05:02.2025
 ________________________________________________________________________
  Opening main command file: .\remodel_hawc2s_1wsp.htc
- Current directory is 
- C:\Users\nicol\git\LAC_final\assignment_05_increased_omega\remodel
+ Current directory is C:\Users\nicol\github\LAC_final\assignment_05\remodel
  Reading data of main body : tower
  Succes opening ./data/DTU_10MW_RWT_Tower_st.dat
  timoschenko input commands read with succes
